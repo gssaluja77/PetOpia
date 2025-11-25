@@ -18,7 +18,7 @@ function ViewPost() {
   const [count, setCount] = useState(0);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
-  const [deleteCommentModalOpen, setDeleteCommentModalOpen] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(null); // Track specific comment
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [comments, setComments] = useState(undefined);
   const [displayedError, setDisplayedError] = useState(null);
@@ -77,12 +77,12 @@ function ViewPost() {
     setDeletePostModalOpen(false);
   };
 
-  const handleCommentDeleteModalOpen = () => {
-    setDeleteCommentModalOpen(true);
+  const handleCommentDeleteModalOpen = (commentId) => {
+    setCommentToDelete(commentId); // Store which comment to delete
   };
 
   const handleCommentDeleteModalClose = () => {
-    setDeleteCommentModalOpen(false);
+    setCommentToDelete(null); // Clear the comment to delete
   };
 
   const handleNewModalOpen = () => {
@@ -267,23 +267,13 @@ function ViewPost() {
 
           {com.userEmail === userEmail && (
             <button
-              onClick={handleCommentDeleteModalOpen}
+              onClick={() => handleCommentDeleteModalOpen(com._id)} // Pass comment ID
               className="text-red-500 hover:text-red-700 text-sm font-medium ml-2"
             >
               Delete
             </button>
           )}
         </div>
-
-        {deleteCommentModalOpen && (
-          <DeleteComment
-            handleCommentDeleteModalClose={handleCommentDeleteModalClose}
-            isOpen={deleteCommentModalOpen}
-            handleChange={handleChange}
-            postId={postId}
-            commentId={com._id}
-          />
-        )}
       </div>
     );
   };
@@ -293,6 +283,21 @@ function ViewPost() {
     comments.map((com) => {
       return buildComment(com);
     });
+
+  // Render delete modal outside the map, only for the selected comment
+  const renderDeleteCommentModal = () => {
+    if (!commentToDelete) return null;
+
+    return (
+      <DeleteComment
+        handleCommentDeleteModalClose={handleCommentDeleteModalClose}
+        isOpen={true}
+        handleChange={handleChange}
+        postId={postId}
+        commentId={commentToDelete}
+      />
+    );
+  };
 
   if (loading) {
     return (
@@ -316,6 +321,8 @@ function ViewPost() {
         </div>
 
         {buildCard()}
+
+        {renderDeleteCommentModal()} {/* Render delete modal for selected comment */}
 
         {newModalOpen && (
           <NewPost
