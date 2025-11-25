@@ -1,8 +1,15 @@
 import axios from 'axios';
 
+let baseURL = null;
+
+if (process.env.NODE_ENV === 'development') {
+    baseURL = 'http://localhost:8000';
+} else {
+    baseURL = 'https://petopia-backend-xmwf.onrender.com';
+}
+
 const instance = axios.create({
-    // baseURL: 'https://petopia-backend-xmwf.onrender.com',
-    baseURL: 'http://localhost:8000',
+    baseURL: baseURL,
 });
 
 export default instance;
