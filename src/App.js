@@ -16,6 +16,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
 import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
 import ErrorHandler from "./components/ErrorHandler";
+import { clearExpiredSession, updateLastActivity } from "./utils/session";
 
 function App() {
   const handleChange = () => {
@@ -23,13 +24,23 @@ function App() {
   };
 
   const [count, setCount] = useState(0);
-  const [userId, setUserId] = useState(window.sessionStorage.getItem("userid"));
+  const [userId, setUserId] = useState(window.localStorage.getItem("userid"));
+
   useEffect(() => {
-    setUserId(window.sessionStorage.getItem("userid"));
+    const wasExpired = clearExpiredSession();
+    if (wasExpired) {
+      setUserId(null);
+    } else {
+      setUserId(window.localStorage.getItem("userid"));
+    }
   }, [count]);
 
+  const handleActivity = () => {
+    updateLastActivity();
+  };
+
   return (
-    <div className="App-container flex flex-col min-h-screen">
+    <div className="App-container flex flex-col min-h-screen" onClick={handleActivity}>
       <Router>
         <div className="flex-grow">
           <Navigation userId={userId} handleChange={handleChange} />
@@ -38,16 +49,10 @@ function App() {
             <Route path="/account" element={<PrivateRoute />}>
               <Route index element={<Navigate to="/account/my-pets" replace />} />
               <Route path="my-pets" element={<PetCenterHome />} />
+              <Route path="my-pet-info/:petId" element={<PetInfo />} />
+              <Route path="community-posts" element={<CommunityPosts />} />
               <Route
-                path="/account/my-pet-info/:petId"
-                element={<PetInfo />}
-              />
-              <Route
-                path={"/account/community-posts"}
-                element={<CommunityPosts />}
-              />
-              <Route
-                path={"/account/community-posts/:postId"}
+                path={"community-posts/:postId"}
                 element={<ViewPost />}
               />
             </Route>

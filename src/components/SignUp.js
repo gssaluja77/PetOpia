@@ -10,7 +10,7 @@ const SignUp = ({ handleChange }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const userId = window.sessionStorage.getItem("userid");
+    const userId = window.localStorage.getItem("userid");
     if (userId) {
       navigate('/account/my-pets');
     }

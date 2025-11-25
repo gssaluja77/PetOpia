@@ -11,7 +11,7 @@ Modal.setAppElement("#root");
 let userId;
 
 const PetCenterHome = () => {
-  userId = window.sessionStorage.getItem("userid");
+  userId = window.localStorage.getItem("userid");
   const [loading, setLoading] = useState(true);
   const [getMyPets, setMyPets] = useState([]);
   const [isOpenPet, setIsOpenPet] = useState(false);
@@ -309,7 +309,7 @@ const PetCenterHome = () => {
 };
 
 const PetInfo = () => {
-  userId = window.sessionStorage.getItem("userid");
+  userId = window.localStorage.getItem("userid");
 
   let [loading, setLoading] = useState(true);
   let [getMyPets, setMyPets] = useState(undefined);

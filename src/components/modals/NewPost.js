@@ -26,8 +26,8 @@ const customStyles = {
 };
 
 function NewPost(props) {
-  const userId = window.sessionStorage.getItem("userid");
-  let userEmail = window.sessionStorage.getItem("userEmail");
+  const userId = window.localStorage.getItem("userid");
+  let userEmail = window.localStorage.getItem("userEmail");
   const [postImage, setPostImage] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");

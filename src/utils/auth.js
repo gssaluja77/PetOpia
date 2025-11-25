@@ -7,8 +7,11 @@ export const signup = async (email, password) => {
     const response = await axios.post('/user/signup', { email, password });
     if (response.data) {
       if (response.data.id) {
-        sessionStorage.setItem(CURRENT_USER_KEY, response.data.id);
-        sessionStorage.setItem("userEmail", email);
+        const now = Date.now();
+        localStorage.setItem(CURRENT_USER_KEY, response.data.id);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("loginTime", now.toString());
+        localStorage.setItem("lastActivity", now.toString());
         return { success: true, user: response.data };
       }
       return { success: true, user: response.data };
@@ -26,8 +29,11 @@ export const login = async (email, password) => {
     const response = await axios.post('/user/login', { email, password });
     if (response.data) {
       if (response.data.id) {
-        sessionStorage.setItem(CURRENT_USER_KEY, response.data.id);
-        sessionStorage.setItem("userEmail", email);
+        const now = Date.now();
+        localStorage.setItem(CURRENT_USER_KEY, response.data.id);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("loginTime", now.toString());
+        localStorage.setItem("lastActivity", now.toString());
         return { success: true, user: response.data };
       }
       return { success: true, user: response.data };
@@ -41,9 +47,12 @@ export const login = async (email, password) => {
 };
 
 export const logout = () => {
-  sessionStorage.removeItem(CURRENT_USER_KEY);
+  localStorage.removeItem(CURRENT_USER_KEY);
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("loginTime");
+  localStorage.removeItem("lastActivity");
 };
 
 export const getCurrentUser = () => {
-  return sessionStorage.getItem(CURRENT_USER_KEY);
+  return localStorage.getItem(CURRENT_USER_KEY);
 };

@@ -2,7 +2,7 @@ import axios from "../../api/axios";
 import { useParams } from "react-router-dom";
 
 const LikeUnlikeComment = (props) => {
-  const userId = window.sessionStorage.getItem("userid");
+  const userId = window.localStorage.getItem("userid");
   const { postId } = useParams();
 
   const likeButton = (com) => {

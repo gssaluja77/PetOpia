@@ -27,7 +27,7 @@ const customStyles = {
 };
 
 function EditPost(props) {
-  const userId = window.sessionStorage.getItem("userid");
+  const userId = window.localStorage.getItem("userid");
   const [postImage, setPostImage] = useState("");
   const [postTitle, setPostTitle] = useState(props.oldDetails.postTitle);
   const [postDescription, setPostDescription] = useState(

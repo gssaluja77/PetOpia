@@ -7,7 +7,7 @@ import SearchPosts from "./SearchPosts";
 import ErrorHandler from "../ErrorHandler";
 
 function CommunityPosts() {
-  const userId = window.sessionStorage.getItem("userid");
+  const userId = window.localStorage.getItem("userid");
   const [firstPage, setFirstPage] = useState(false);
   const [lastPage, setLastPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

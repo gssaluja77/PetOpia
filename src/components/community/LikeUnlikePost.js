@@ -1,7 +1,7 @@
 import axios from "../../api/axios";
 
 const LikeUnlikePost = (props) => {
-  const userId = window.sessionStorage.getItem("userid");
+  const userId = window.localStorage.getItem("userid");
   const likeButton = (post) => {
     return post.postLikes.includes(userId) ? (
       <button

@@ -74,7 +74,7 @@ const Navigation = ({ userId, handleChange }) => {
             {userId ? (
               <>
                 <span className="text-gray-700 font-medium mr-4">
-                  Hi, <strong>{window.sessionStorage.getItem("userEmail")?.split('@')[0]}</strong>!
+                  Hi, <strong>{window.localStorage.getItem("userEmail")?.split('@')[0]}</strong>!
                 </span>
                 <SignOutButton handleChange={handleChange} />
               </>
@@ -193,7 +193,7 @@ const Navigation = ({ userId, handleChange }) => {
               {userId ? (
                 <div className="w-full flex items-center justify-between">
                   <span className="text-gray-700 font-medium mr-4">
-                    Hello, {window.sessionStorage.getItem("userEmail")?.split('@')[0]}!
+                    Hello, {window.localStorage.getItem("userEmail")?.split('@')[0]}!
                   </span>
                   <SignOutButton handleChange={handleChange} />
                 </div>
