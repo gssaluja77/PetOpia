@@ -98,7 +98,7 @@ const SignIn = ({ handleChange }) => {
               type="button"
               className="font-medium text-indigo-600 hover:text-indigo-500 bg-transparent border-none p-0 cursor-pointer"
             >
-              Forgot your password?
+              Forgot your password? (Feature coming soon...)
             </button>
           </div>
 
