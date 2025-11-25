@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Compound Path for Main Pad with Heart Cutout -->
+  <path fill-rule="evenodd" clip-rule="evenodd" 
+        d="M130 300
+           C130 300, 160 240, 256 240
+           C352 240, 382 300, 382 300
+           C415 350, 410 430, 370 460
+           C330 495, 286 465, 256 465
+           C226 465, 182 495, 142 460
+           C102 430, 97 350, 130 300ZM256 425C256 425 325 380 325 340C325 315 305 300 280 300C265 300 256 315 256 315C256 315 247 300 232 300C207 300 187 315 187 340C187 380 256 425 256 425Z"
+        fill="#4f46e5"/>
+
+  <!-- Toes -->
+  <ellipse cx="96" cy="190" rx="45" ry="65" transform="rotate(-30 96 190)" fill="#4f46e5"/>
+  <ellipse cx="196" cy="120" rx="45" ry="65" transform="rotate(-10 196 120)" fill="#4f46e5"/>
+  <ellipse cx="316" cy="120" rx="45" ry="65" transform="rotate(10 316 120)" fill="#4f46e5"/>
+  <ellipse cx="416" cy="190" rx="45" ry="65" transform="rotate(30 416 190)" fill="#4f46e5"/>
+</svg>
