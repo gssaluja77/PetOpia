@@ -235,8 +235,8 @@ function ViewPost() {
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
                 className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
-                    ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                  : "bg-indigo-600 text-white hover:bg-indigo-700"
                   }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
@@ -298,7 +298,6 @@ function ViewPost() {
       return buildComment(com);
     });
 
-  // Render delete modal outside the map, only for the selected comment
   const renderDeleteCommentModal = () => {
     if (!commentToDelete) return null;
 
@@ -336,7 +335,7 @@ function ViewPost() {
 
         {buildCard()}
 
-        {renderDeleteCommentModal()} {/* Render delete modal for selected comment */}
+        {renderDeleteCommentModal()}
 
         {newModalOpen && (
           <NewPost

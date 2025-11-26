@@ -18,7 +18,7 @@ function CommunityPosts() {
   const [count, setCount] = useState(0);
   const [postType, setPostType] = useState("allPosts");
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchedData, setSearchedData] = useState(undefined);
+  const [searchedData, setSearchedData] = useState([]);
 
   useEffect(() => {
     const getPostsData = async () => {
@@ -36,9 +36,7 @@ function CommunityPosts() {
           });
           setMyPostsData(postsByUser);
 
-          // Pagination logic using backend metadata
           setFirstPage(currentPage === 1);
-          // Check if there are more posts beyond current page
           const totalPages = Math.ceil(numberOfDocs / limit);
           setLastPage(currentPage >= totalPages);
         }
@@ -143,10 +141,7 @@ function CommunityPosts() {
   let card = null;
   if (searchQuery) {
     card =
-      searchedData &&
-      searchedData.map((post) => {
-        return buildCard(post);
-      });
+      searchedData.length ? searchedData.map((post) => buildCard(post)) : <div className="col-span-full text-center py10"><h2 className="text-xl text-gray-600">No posts found!</h2></div>;
   } else {
     if (postType === "allPosts") {
       card = allPostsData.length ? allPostsData.map((post) => buildCard(post)) : <div className="col-span-full text-center py10"><h2 className="text-xl text-gray-600">No community posts yet!</h2></div>;
