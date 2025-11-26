@@ -9,7 +9,7 @@ const LikeUnlikeComment = (props) => {
   const [likesCount, setLikesCount] = useState(props.commentObj.commentLikes.length);
 
   const handleLike = () => {
-    // Optimistic update
+    // Optimistically updating UI
     const newLiked = !liked;
     setLiked(newLiked);
     setLikesCount((prev) => (newLiked ? prev + 1 : prev - 1));
@@ -18,7 +18,7 @@ const LikeUnlikeComment = (props) => {
       axios
         .post(`/view-post/${postId}/${props.commentObj._id}`, { userThatPosted: userId })
         .catch((error) => {
-          // Revert on error
+          // Reverting on error
           setLiked(false);
           setLikesCount((prev) => prev - 1);
           console.log(error);
@@ -27,7 +27,7 @@ const LikeUnlikeComment = (props) => {
       axios
         .delete(`/view-post/${postId}/${props.commentObj._id}/${userId}`)
         .catch((error) => {
-          // Revert on error
+          // Reverting on error
           setLiked(true);
           setLikesCount((prev) => prev + 1);
           console.log(error);

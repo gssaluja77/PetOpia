@@ -545,10 +545,8 @@ const PetInfo = () => {
       };
 
       if (removeImage) {
-        // User wants to remove the image
         savePetUpdate(null);
       } else if (petImageFile) {
-        // User uploaded a new image
         const formData = new FormData();
         formData.append("image", petImageFile);
         axios
@@ -564,7 +562,6 @@ const PetInfo = () => {
             showError();
           });
       } else {
-        // No changes to image
         savePetUpdate(undefined);
       }
     }
