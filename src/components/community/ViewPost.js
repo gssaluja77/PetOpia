@@ -56,9 +56,6 @@ function ViewPost() {
     setCommentValue(value);
 
     if (!value.trim().length) {
-      // We don't set error immediately while typing, just disable button via render
-      // setIsError(true); 
-      // setDisplayedError("Comment can't be empty!");
     } else {
       setIsError(false);
       setDisplayedError(null);
