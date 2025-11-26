@@ -84,7 +84,7 @@ function CommunityPosts() {
           <div className="flex justify-between items-start mb-2">
             <div className="text-xs text-gray-500">
               <span className="font-medium text-gray-700">
-                {post.userEmail.substring(0, post.userEmail.indexOf("@")).length > 13
+                {post.userThatPosted === userId ? "You" : post.userEmail.substring(0, post.userEmail.indexOf("@")).length > 13
                   ? post.userEmail.substring(0, post.userEmail.indexOf("@")).slice(0, 13) + "..."
                   : post.userEmail.substring(0, post.userEmail.indexOf("@"))}
               </span>
