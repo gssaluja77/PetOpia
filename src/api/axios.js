@@ -5,7 +5,7 @@ let baseURL = null;
 if (process.env.NODE_ENV === "development") {
   baseURL = "http://localhost:8000";
 } else {
-  baseURL = "https://petopia-backend-chi.vercel.app/";
+  baseURL = "https://petopia-backend-chi.vercel.app";
 }
 
 const instance = axios.create({
