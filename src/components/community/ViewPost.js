@@ -78,11 +78,11 @@ function ViewPost() {
   };
 
   const handleCommentDeleteModalOpen = (commentId) => {
-    setCommentToDelete(commentId); // Store which comment to delete
+    setCommentToDelete(commentId);
   };
 
   const handleCommentDeleteModalClose = () => {
-    setCommentToDelete(null); // Clear the comment to delete
+    setCommentToDelete(null);
   };
 
   const handleNewModalOpen = () => {
@@ -106,8 +106,8 @@ function ViewPost() {
         comment: commentInput,
         userEmail: userEmail,
       })
-      .then(() => {
-        setCount(count + 1);
+      .then((response) => {
+        setComments([...comments, response.data]);
         document.getElementById("comment-box").value = "";
         document.querySelector("#post-comment").disabled = false;
       })
