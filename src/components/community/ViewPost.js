@@ -26,6 +26,9 @@ function ViewPost() {
   let { postId } = useParams();
   let comment;
 
+  const [commentValue, setCommentValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     const getPostsAndComments = async () => {
       try {
@@ -49,15 +52,16 @@ function ViewPost() {
   };
 
   const handleCommentChange = (event) => {
-    if (!event.target.value.trim().length) {
-      setIsError(true);
-      setDisplayedError("Comment can't be empty!");
-      document.querySelector("#post-comment").disabled = true;
-    }
-    else {
+    const value = event.target.value;
+    setCommentValue(value);
+
+    if (!value.trim().length) {
+      // We don't set error immediately while typing, just disable button via render
+      // setIsError(true); 
+      // setDisplayedError("Comment can't be empty!");
+    } else {
       setIsError(false);
       setDisplayedError(null);
-      document.querySelector("#post-comment").disabled = false;
     }
   }
 
@@ -95,25 +99,30 @@ function ViewPost() {
 
   const handleCommentAdded = async (event) => {
     event.preventDefault();
+    if (!commentValue.trim()) {
+      setIsError(true);
+      setDisplayedError("Comment can't be empty!");
+      return;
+    }
+
     setIsError(false);
-    document.querySelector("#post-comment").disabled = true;
-    const data = new FormData(event.target);
-    const formJson = Object.fromEntries(data.entries());
-    let commentInput = formJson["comment-box"];
+    setIsSubmitting(true);
+
     axios
       .post(`/view-post/${postId}`, {
         userThatPosted: userId,
-        comment: commentInput,
+        comment: commentValue,
         userEmail: userEmail,
       })
       .then((response) => {
         setComments([...comments, response.data]);
-        document.getElementById("comment-box").value = "";
-        document.querySelector("#post-comment").disabled = false;
+        setCommentValue("");
+        setIsSubmitting(false);
       })
       .catch((error) => {
-        setDisplayedError(error.response.data);
-        document.getElementById("comment-box").value = "";
+        setDisplayedError(error.response?.data || "Error posting comment");
+        setCommentValue("");
+        setIsSubmitting(false);
       });
   };
 
@@ -212,6 +221,7 @@ function ViewPost() {
             <div className="flex space-x-3">
               <input
                 onChange={handleCommentChange}
+                value={commentValue}
                 id="comment-box"
                 name="comment-box"
                 placeholder="Write a comment..."
@@ -223,9 +233,13 @@ function ViewPost() {
               <button
                 id="post-comment"
                 type="submit"
-                className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 text-sm font-medium whitespace-nowrap"
+                disabled={isSubmitting || !commentValue.trim()}
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
+                    ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}
               >
-                Post
+                {isSubmitting ? "Posting..." : "Post"}
               </button>
             </div>
           </form>
