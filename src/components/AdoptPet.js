@@ -11,8 +11,8 @@ function AdoptPet() {
   const [maxPage, setMaxPage] = useState(null);
   const [error, setError] = useState(null);
   const [animal, setAnimal] = useState(null);
-  const clientId = 'mR1WfUgThjt5RpjyZuTHIHMf5BC0SzUbTuJjJnSyJZiRodfiPA';
-  const clientSecret = 'dep3PivKfHYkOfGRYbrkwD2EefMrogmngnPjdomZ';
+  const clientId = "mR1WfUgThjt5RpjyZuTHIHMf5BC0SzUbTuJjJnSyJZiRodfiPA";
+  const clientSecret = "dep3PivKfHYkOfGRYbrkwD2EefMrogmngnPjdomZ";
 
   useEffect(() => {
     async function fetchToken() {
@@ -52,7 +52,7 @@ function AdoptPet() {
           setData(response.animals);
           setError(null);
         })
-        .catch(error => setError(error.message));
+        .catch((error) => setError(error.message));
     }
     if (token) {
       fetchData();
@@ -62,7 +62,7 @@ function AdoptPet() {
   const handleOpenModal = (event) => {
     setOpenModal(true);
     setAnimal(event);
-  }
+  };
   const handleCloseModals = () => {
     setOpenModal(false);
   };
@@ -80,20 +80,30 @@ function AdoptPet() {
     });
 
     return (
-      <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full max-w-sm mx-auto w-full cursor-pointer group" onClick={() => handleOpenModal(event)}>
+      <div
+        key={event.id}
+        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full max-w-sm mx-auto w-full cursor-pointer group"
+        onClick={() => handleOpenModal(event)}
+      >
         <div className="aspect-w-4 aspect-h-3 w-full overflow-hidden relative bg-gray-100">
           <img
-            src={event.photos && event.photos[0] ? event.photos[0].large : noImage}
+            src={
+              event.photos && event.photos[0] ? event.photos[0].large : noImage
+            }
             alt={event.name}
             className="w-full h-80 object-cover transform group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-            <span className="text-white font-medium px-4 py-2 border border-white rounded-full text-sm">View Details</span>
+            <span className="text-white font-medium px-4 py-2 border border-white rounded-full text-sm">
+              View Details
+            </span>
           </div>
         </div>
 
         <div className="p-5 flex-1 flex flex-col text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2 truncate">{event.name}</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2 truncate">
+            {event.name}
+          </h3>
           <p className="text-sm text-gray-500 mb-3">
             {event.age && <span>{event.age}</span>}
             {event.gender && <span> • {event.gender}</span>}
@@ -103,7 +113,12 @@ function AdoptPet() {
           {characterists.length > 0 && (
             <div className="mt-auto pt-3 border-t border-gray-100 flex justify-center flex-wrap gap-2">
               {characterists.slice(0, 3).map((tag, index) => (
-                <span key={index} className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded-md">{tag}</span>
+                <span
+                  key={index}
+                  className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded-md"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           )}
@@ -113,33 +128,46 @@ function AdoptPet() {
   };
 
   if (error) {
-    return (
-      <ErrorHandler error={error}></ErrorHandler>
-    )
+    return <ErrorHandler error={error}></ErrorHandler>;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Adopt a Pet</h1>
-        <p className="text-gray-600 max-w-2xl mx-auto">Find your new best friend. Browse through thousands of adoptable pets from shelters and rescues.</p>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+          Adopt a Pet
+        </h1>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Find your new best friend. Browse through thousands of adoptable pets
+          from shelters and rescues.
+        </p>
       </div>
 
       <div className="flex justify-center items-center mb-8 gap-4">
         <button
           onClick={() => handlePrevios()}
           disabled={page <= 1}
-          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${page <= 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm'}`}
+          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${
+            page <= 1
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+          }`}
         >
           &larr; Previous
         </button>
 
-        <span className="text-gray-700 font-medium">Page {page} {maxPage && `of ${maxPage}`}</span>
+        <span className="text-gray-700 font-medium">
+          Page {page} {maxPage && `of ${maxPage}`}
+        </span>
 
         <button
           onClick={() => handleNext()}
           disabled={page >= maxPage}
-          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${page >= maxPage ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm'}`}
+          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${
+            page >= maxPage
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+          }`}
         >
           Next &rarr;
         </button>
@@ -160,14 +188,22 @@ function AdoptPet() {
           <button
             onClick={() => handlePrevios()}
             disabled={page <= 1}
-            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${page <= 1 ? 'hidden' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm'}`}
+            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${
+              page <= 1
+                ? "hidden"
+                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+            }`}
           >
             &larr; Previous Page
           </button>
           <button
             onClick={() => handleNext()}
             disabled={page >= maxPage}
-            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${page >= maxPage ? 'hidden' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm'}`}
+            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${
+              page >= maxPage
+                ? "hidden"
+                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+            }`}
           >
             Next Page &rarr;
           </button>

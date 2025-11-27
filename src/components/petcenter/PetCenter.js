@@ -82,7 +82,7 @@ const PetCenterHome = () => {
             petName: petName,
             petAge: petAge,
             petType: petType,
-            petBreed: petBreed
+            petBreed: petBreed,
           });
 
           setCount(count + 1);
@@ -101,7 +101,7 @@ const PetCenterHome = () => {
         formData.append("image", petImage);
         axios
           .post("/api/upload", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data" },
           })
           .then((response) => {
             savePet(response.data.url);
@@ -129,7 +129,8 @@ const PetCenterHome = () => {
       width: "90%",
       padding: "2rem",
       borderRadius: "0.75rem",
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -139,8 +140,14 @@ const PetCenterHome = () => {
 
   const buildCard = (pet) => {
     return (
-      <div key={pet._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full">
-        <Link to={`/account/my-pet-info/${pet._id}`} className="block flex-grow">
+      <div
+        key={pet._id}
+        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full"
+      >
+        <Link
+          to={`/account/my-pet-info/${pet._id}`}
+          className="block flex-grow"
+        >
           {pet.petImage ? (
             <div className="aspect-w-4 aspect-h-3 w-full overflow-hidden">
               <img
@@ -155,8 +162,12 @@ const PetCenterHome = () => {
             </div>
           )}
           <div className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">{pet.petName}</h3>
-            <p className="text-base text-gray-500">{pet.petBreed} • {pet.petAge} years</p>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+              {pet.petName}
+            </h3>
+            <p className="text-base text-gray-500">
+              {pet.petBreed} • {pet.petAge} years
+            </p>
           </div>
         </Link>
       </div>
@@ -173,8 +184,12 @@ const PetCenterHome = () => {
     return (
       <div className="container mx-auto px-4 py-8 flex flex-col items-center">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Your Pet Center</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-6">Manage your pets' health and wellness in one place.</p>
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+            Your Pet Center
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+            Manage your pets' health and wellness in one place.
+          </p>
           <button
             onClick={() => showPet()}
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-full shadow-md transition duration-150 ease-in-out flex items-center mx-auto text-lg"
@@ -190,7 +205,9 @@ const PetCenterHome = () => {
         ) : (
           <div className="text-center py-10 bg-white rounded-xl shadow-sm border border-gray-200">
             <h2 className="text-xl p-4 text-gray-600">No pets added yet!</h2>
-            <p className="text-gray-500 p-4 mt-2">Click the "Add Pet" button to get started.</p>
+            <p className="text-gray-500 p-4 mt-2">
+              Click the "Add Pet" button to get started.
+            </p>
           </div>
         )}
 
@@ -201,15 +218,35 @@ const PetCenterHome = () => {
           style={customStyles}
         >
           <div className="relative">
-            <button onClick={showPet} className="absolute top-0 right-0 text-gray-400 hover:text-gray-600">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            <button
+              onClick={showPet}
+              className="absolute top-0 right-0 text-gray-400 hover:text-gray-600"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Add your Pet</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              Add your Pet
+            </h3>
             <form onSubmit={addPet} className="space-y-4">
               <div>
-                <label htmlFor="petImage" className="block text-sm font-medium text-gray-700 mb-1">Image</label>
+                <label
+                  htmlFor="petImage"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Image
+                </label>
                 <input
                   onChange={handleImageChange}
                   type="file"
@@ -220,7 +257,12 @@ const PetCenterHome = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petName" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <label
+                  htmlFor="petName"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Name
+                </label>
                 <input
                   placeholder="Ex: Tommy"
                   type="text"
@@ -231,7 +273,12 @@ const PetCenterHome = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petAge" className="block text-sm font-medium text-gray-700 mb-1">Age (in years)</label>
+                <label
+                  htmlFor="petAge"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Age (in years)
+                </label>
                 <input
                   placeholder="Ex: 1.5"
                   min={0}
@@ -244,7 +291,12 @@ const PetCenterHome = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petType" className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label
+                  htmlFor="petType"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Type
+                </label>
                 <input
                   placeholder="Ex: Dog"
                   type="text"
@@ -255,7 +307,12 @@ const PetCenterHome = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petBreed" className="block text-sm font-medium text-gray-700 mb-1">Breed</label>
+                <label
+                  htmlFor="petBreed"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Breed
+                </label>
                 <input
                   placeholder="Ex: Husky"
                   type="text"
@@ -268,7 +325,9 @@ const PetCenterHome = () => {
 
               <div className="pt-4">
                 {axiosLoading ? (
-                  <div className="text-center text-indigo-600 font-medium">Uploading...</div>
+                  <div className="text-center text-indigo-600 font-medium">
+                    Uploading...
+                  </div>
                 ) : (
                   <button
                     type="submit"
@@ -289,7 +348,12 @@ const PetCenterHome = () => {
         >
           <div className="text-center">
             <h3 className="text-lg font-medium text-red-600">Invalid Input!</h3>
-            <button onClick={showError} className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">Close</button>
+            <button
+              onClick={showError}
+              className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
           </div>
         </Modal>
 
@@ -299,8 +363,15 @@ const PetCenterHome = () => {
           style={customStyles}
         >
           <div className="text-center">
-            <h3 className="text-lg font-medium text-red-600">Input cannot be empty!</h3>
-            <button onClick={showEmptyError} className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">Close</button>
+            <h3 className="text-lg font-medium text-red-600">
+              Input cannot be empty!
+            </h3>
+            <button
+              onClick={showEmptyError}
+              className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
           </div>
         </Modal>
       </div>
@@ -322,16 +393,15 @@ const PetInfo = () => {
   const [removeImage, setRemoveImage] = useState(false);
   const [axiosLoading, setAxiosLoading] = useState(false);
 
-
   const { petId } = useParams();
   let navigate = useNavigate();
-
-
 
   useEffect(() => {
     async function getPets() {
       try {
-        const response = await axios.get(`/account/pets/mypet/${userId}/${petId}`);
+        const response = await axios.get(
+          `/account/pets/mypet/${userId}/${petId}`
+        );
         setMyPets(response.data);
         setLoading(false);
       } catch (error) {
@@ -395,7 +465,7 @@ const PetInfo = () => {
             petId: petId,
             medicationName: medicationName,
             administeredDate: administeredDate,
-            dosage: dosage
+            dosage: dosage,
           });
           setMyPets(response.data);
         } catch (e) {
@@ -432,7 +502,7 @@ const PetInfo = () => {
             petId: petId,
             appointmentDate: appointmentDate,
             reason: reason,
-            clinicName: clinicName
+            clinicName: clinicName,
           });
           setMyPets(response.data);
         } catch (e) {
@@ -448,7 +518,7 @@ const PetInfo = () => {
       const response = await axios.post(`/account/pets/prescription`, {
         userId: userId,
         petId: petId,
-        imageUrl: url
+        imageUrl: url,
       });
       setMyPets(response.data);
     } catch (e) {
@@ -462,8 +532,8 @@ const PetInfo = () => {
         data: {
           userId: userId,
           petId: petId,
-          medId: val._id
-        }
+          medId: val._id,
+        },
       });
       setMyPets(response.data);
     } catch (e) {
@@ -477,8 +547,8 @@ const PetInfo = () => {
         data: {
           userId: userId,
           petId: petId,
-          appId: val._id
-        }
+          appId: val._id,
+        },
       });
       setMyPets(response.data);
     } catch (e) {
@@ -492,8 +562,8 @@ const PetInfo = () => {
         data: {
           userId: userId,
           petId: petId,
-          imageUrl: imageUrl
-        }
+          imageUrl: imageUrl,
+        },
       });
       setMyPets(response.data);
     } catch (e) {
@@ -531,7 +601,7 @@ const PetInfo = () => {
             petAge: petAge,
             petType: petType,
             petBreed: petBreed,
-            petImage: imageUrl
+            petImage: imageUrl,
           });
           setMyPets(response.data);
           setIsOpenEditPet(!isOpenEditPet);
@@ -551,7 +621,7 @@ const PetInfo = () => {
         formData.append("image", petImageFile);
         axios
           .post("/api/upload", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data" },
           })
           .then((response) => {
             savePetUpdate(response.data.url);
@@ -572,8 +642,8 @@ const PetInfo = () => {
     try {
       await axios.delete(`/account/pets/${userId}`, {
         data: {
-          petId: petId
-        }
+          petId: petId,
+        },
       });
       navigate("/account/my-pets");
     } catch (e) {
@@ -593,7 +663,8 @@ const PetInfo = () => {
       width: "90%",
       padding: "2rem",
       borderRadius: "0.75rem",
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -617,10 +688,16 @@ const PetInfo = () => {
             </button>
           </Link>
           <div className="space-x-2">
-            <button onClick={() => showEditPet()} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium transition duration-150">
+            <button
+              onClick={() => showEditPet()}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium transition duration-150"
+            >
               Edit
             </button>
-            <button onClick={() => showDelPet()} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition duration-150">
+            <button
+              onClick={() => showDelPet()}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition duration-150"
+            >
               Delete
             </button>
           </div>
@@ -631,23 +708,41 @@ const PetInfo = () => {
             <div className="flex flex-col md:flex-row gap-8">
               {getMyPets.petImage && (
                 <div className="w-full md:w-1/3">
-                  <img src={getMyPets.petImage} alt={getMyPets.petName} className="w-full h-auto rounded-lg shadow-md object-cover" />
+                  <img
+                    src={getMyPets.petImage}
+                    alt={getMyPets.petName}
+                    className="w-full h-auto rounded-lg shadow-md object-cover"
+                  />
                 </div>
               )}
               <div className="w-full md:w-2/3">
-                <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{getMyPets.petName}</h1>
+                <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
+                  {getMyPets.petName}
+                </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">Age</span>
-                    <span className="text-lg font-semibold text-gray-800">{getMyPets.petAge} years</span>
+                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">
+                      Age
+                    </span>
+                    <span className="text-lg font-semibold text-gray-800">
+                      {getMyPets.petAge} years
+                    </span>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">Type</span>
-                    <span className="text-lg font-semibold text-gray-800">{getMyPets.petType}</span>
+                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">
+                      Type
+                    </span>
+                    <span className="text-lg font-semibold text-gray-800">
+                      {getMyPets.petType}
+                    </span>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">Breed</span>
-                    <span className="text-lg font-semibold text-gray-800">{getMyPets.petBreed}</span>
+                    <span className="block text-sm text-gray-500 font-medium uppercase tracking-wider">
+                      Breed
+                    </span>
+                    <span className="text-lg font-semibold text-gray-800">
+                      {getMyPets.petBreed}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -682,9 +777,22 @@ const PetInfo = () => {
           style={customStyles}
         >
           <div className="relative">
-            <button onClick={showEditPet} className="absolute top-0 right-0 text-gray-400 hover:text-gray-600">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            <button
+              onClick={showEditPet}
+              className="absolute top-0 right-0 text-gray-400 hover:text-gray-600"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Edit Pet</h3>
@@ -692,7 +800,9 @@ const PetInfo = () => {
               {/* Current Photo Section */}
               {getMyPets.petImage && !removeImage && !petImageFile && (
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Current Photo</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Current Photo
+                  </label>
                   <div className="relative inline-block">
                     <img
                       src={getMyPets.petImage}
@@ -713,8 +823,15 @@ const PetInfo = () => {
 
               {/* Photo Upload Section */}
               <div>
-                <label htmlFor="petImage" className="block text-sm font-medium text-gray-700 mb-1">
-                  {removeImage ? "Photo will be removed" : (petImageFile ? "New Photo Selected" : "Upload New Photo")}
+                <label
+                  htmlFor="petImage"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {removeImage
+                    ? "Photo will be removed"
+                    : petImageFile
+                    ? "New Photo Selected"
+                    : "Upload New Photo"}
                 </label>
                 {!removeImage && (
                   <input
@@ -738,7 +855,12 @@ const PetInfo = () => {
               </div>
 
               <div>
-                <label htmlFor="petName" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <label
+                  htmlFor="petName"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Name
+                </label>
                 <input
                   defaultValue={getMyPets.petName}
                   type="text"
@@ -749,7 +871,12 @@ const PetInfo = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petAge" className="block text-sm font-medium text-gray-700 mb-1">Age (in years)</label>
+                <label
+                  htmlFor="petAge"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Age (in years)
+                </label>
                 <input
                   defaultValue={getMyPets.petAge}
                   min={0}
@@ -762,7 +889,12 @@ const PetInfo = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petType" className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label
+                  htmlFor="petType"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Type
+                </label>
                 <input
                   defaultValue={getMyPets.petType}
                   type="text"
@@ -773,7 +905,12 @@ const PetInfo = () => {
                 />
               </div>
               <div>
-                <label htmlFor="petBreed" className="block text-sm font-medium text-gray-700 mb-1">Breed</label>
+                <label
+                  htmlFor="petBreed"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Breed
+                </label>
                 <input
                   defaultValue={getMyPets.petBreed}
                   type="text"
@@ -786,7 +923,9 @@ const PetInfo = () => {
 
               <div className="pt-4">
                 {axiosLoading ? (
-                  <div className="text-center text-indigo-600 font-medium">Uploading...</div>
+                  <div className="text-center text-indigo-600 font-medium">
+                    Uploading...
+                  </div>
                 ) : (
                   <button
                     type="submit"
@@ -806,11 +945,26 @@ const PetInfo = () => {
           style={customStyles}
         >
           <div className="text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Delete Pet?</h3>
-            <p className="text-gray-600 mb-6">Are you sure you want to delete {getMyPets.petName}? This action cannot be undone.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-4">
+              Delete Pet?
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to delete {getMyPets.petName}? This action
+              cannot be undone.
+            </p>
             <div className="flex justify-center space-x-4">
-              <button onClick={showDelPet} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-md transition duration-150">Cancel</button>
-              <button onClick={delPet} className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-md transition duration-150">Delete</button>
+              <button
+                onClick={showDelPet}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-md transition duration-150"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={delPet}
+                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-md transition duration-150"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </Modal>
@@ -821,8 +975,15 @@ const PetInfo = () => {
           style={customStyles}
         >
           <div className="text-center">
-            <h3 className="text-lg font-medium text-red-600">Input cannot be empty</h3>
-            <button onClick={showError} className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">Close</button>
+            <h3 className="text-lg font-medium text-red-600">
+              Input cannot be empty
+            </h3>
+            <button
+              onClick={showError}
+              className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
           </div>
         </Modal>
 
@@ -833,15 +994,18 @@ const PetInfo = () => {
         >
           <div className="text-center">
             <h3 className="text-lg font-medium text-red-600">Invalid Input</h3>
-            <button onClick={showEmptyError} className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">Close</button>
+            <button
+              onClick={showEmptyError}
+              className="mt-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
           </div>
         </Modal>
       </div>
     );
   } else if (errorMsg) {
-    return (
-      <ErrorHandler error={errorMsg} />
-    );
+    return <ErrorHandler error={errorMsg} />;
   } else {
     return null;
   }

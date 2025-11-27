@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../utils/auth';
+import { useNavigate } from "react-router-dom";
+import { logout } from "../utils/auth";
 
 const SignOutButton = ({ handleChange }) => {
   const navigate = useNavigate();
@@ -7,7 +7,7 @@ const SignOutButton = ({ handleChange }) => {
   const handleSignOut = () => {
     logout();
     handleChange();
-    navigate('/');
+    navigate("/");
   };
 
   return (

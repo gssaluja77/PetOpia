@@ -17,13 +17,14 @@ const customStyles = {
     maxWidth: "600px",
     padding: "2rem",
     borderRadius: "0.75rem",
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+    boxShadow:
+      "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     border: "none",
   },
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.75)",
     zIndex: 1000,
-  }
+  },
 };
 
 function EditPost(props) {
@@ -64,7 +65,9 @@ function EditPost(props) {
       setDisplayedErrorForTitle("Title can't be empty!");
     } else if (event.target.value.length > 30) {
       setIsError(true);
-      setDisplayedErrorForTitle("Post title cannot contain more than 30 characters!");
+      setDisplayedErrorForTitle(
+        "Post title cannot contain more than 30 characters!"
+      );
     } else {
       setIsError(false);
       setDisplayedErrorForTitle(null);
@@ -97,7 +100,7 @@ function EditPost(props) {
 
       axios
         .post("/api/upload", formData, {
-          headers: { "Content-Type": "multipart/form-data" }
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
           setPostImage(response.data.url);
@@ -168,8 +171,18 @@ function EditPost(props) {
           onClick={handleCloseModal}
           className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 transition-colors"
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
@@ -177,7 +190,10 @@ function EditPost(props) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="post-image" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="post-image"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Change Picture
             </label>
             <input
@@ -199,14 +215,20 @@ function EditPost(props) {
                 onChange={handleCheckBox}
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remove-pic" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remove-pic"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remove Picture
               </label>
             </div>
           )}
 
           <div>
-            <label htmlFor="post-title" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="post-title"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Change Title
             </label>
             <input
@@ -218,11 +240,18 @@ function EditPost(props) {
               onChange={handleTitleChange}
               required
             />
-            {isError && <div className="mt-1 text-sm text-red-600">{displayedErrorForTitle}</div>}
+            {isError && (
+              <div className="mt-1 text-sm text-red-600">
+                {displayedErrorForTitle}
+              </div>
+            )}
           </div>
 
           <div>
-            <label htmlFor="post-description" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="post-description"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Change Description
             </label>
             <textarea
@@ -234,20 +263,27 @@ function EditPost(props) {
               onChange={handleDescriptionChange}
               required
             />
-            {isDescError && <div className="mt-1 text-sm text-red-600">{displayedErrorFordesc}</div>}
+            {isDescError && (
+              <div className="mt-1 text-sm text-red-600">
+                {displayedErrorFordesc}
+              </div>
+            )}
           </div>
 
           {serverError && <ErrorHandler error={displayedError} />}
 
           <div className="pt-4">
             {axiosLoading ? (
-              <div className="text-center text-indigo-600 font-medium">Updating...</div>
+              <div className="text-center text-indigo-600 font-medium">
+                Updating...
+              </div>
             ) : (
               <button
                 type="submit"
                 disabled={isError || isDescError}
-                className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out ${(isError || isDescError) ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out ${
+                  isError || isDescError ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 Submit
               </button>

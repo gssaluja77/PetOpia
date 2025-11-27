@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import axios from "../../api/axios";
 
-const Prescriptions = ({ prescriptions, addPrescription, deletePrescription, customStyles }) => {
+const Prescriptions = ({
+  prescriptions,
+  addPrescription,
+  deletePrescription,
+  customStyles,
+}) => {
   const [isOpenPres, setIsOpenPres] = useState(false);
-  const [isHidden, setIsHidden] = useState(prescriptions && prescriptions.length > 0 ? false : true);
+  const [isHidden, setIsHidden] = useState(
+    prescriptions && prescriptions.length > 0 ? false : true
+  );
   const [presImg, setPresImg] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -24,7 +31,7 @@ const Prescriptions = ({ prescriptions, addPrescription, deletePrescription, cus
 
     axios
       .post("/api/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
         if (response.data.url) {
@@ -60,25 +67,44 @@ const Prescriptions = ({ prescriptions, addPrescription, deletePrescription, cus
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {prescriptions.map((val, index) => (
                 <div key={index} className="relative group">
-                  <a href={typeof val === 'string' ? val : val.imageUrl} target="_blank" rel="noopener noreferrer" className="block">
+                  <a
+                    href={typeof val === "string" ? val : val.imageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
                     <img
-                      src={typeof val === 'string' ? val : val.imageUrl}
+                      src={typeof val === "string" ? val : val.imageUrl}
                       alt="Prescription"
                       className="w-full h-48 object-cover rounded-lg shadow-sm hover:opacity-90 transition-opacity"
                     />
                   </a>
                   <button
-                    onClick={() => deletePrescription(typeof val === 'string' ? val : val.imageUrl)}
+                    onClick={() =>
+                      deletePrescription(
+                        typeof val === "string" ? val : val.imageUrl
+                      )
+                    }
                     className="absolute top-2 right-2 bg-red-600 text-white p-1.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-700 focus:outline-none"
                     title="Delete Prescription"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
                     </svg>
                   </button>
                 </div>
-              ))
-              }
+              ))}
             </div>
           ) : (
             <p className="text-gray-500 italic mb-4">

@@ -23,8 +23,11 @@ function CommunityPosts() {
   useEffect(() => {
     const getPostsData = async () => {
       try {
-        const response = await axios.get(`/community-posts?page=${currentPage}&keyword=${searchQuery}`);
-        const { allPostsData, allPosts, numberOfDocs, limit } = response.data.allData;
+        const response = await axios.get(
+          `/community-posts?page=${currentPage}&keyword=${searchQuery}`
+        );
+        const { allPostsData, allPosts, numberOfDocs, limit } =
+          response.data.allData;
 
         if (searchQuery) {
           const { searchedData } = response.data;
@@ -63,8 +66,14 @@ function CommunityPosts() {
 
   const buildCard = (post) => {
     return (
-      <div key={post._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full">
-        <Link to={`/account/community-posts/${post._id}`} className="block relative">
+      <div
+        key={post._id}
+        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full"
+      >
+        <Link
+          to={`/account/community-posts/${post._id}`}
+          className="block relative"
+        >
           {post.postImage ? (
             <div className="h-48 w-full overflow-hidden">
               <img
@@ -84,8 +93,13 @@ function CommunityPosts() {
           <div className="flex justify-between items-start mb-2">
             <div className="text-xs text-gray-500">
               <span className="font-medium text-gray-700">
-                {post.userThatPosted === userId ? "You" : post.userEmail.substring(0, post.userEmail.indexOf("@")).length > 13
-                  ? post.userEmail.substring(0, post.userEmail.indexOf("@")).slice(0, 13) + "..."
+                {post.userThatPosted === userId
+                  ? "You"
+                  : post.userEmail.substring(0, post.userEmail.indexOf("@"))
+                      .length > 13
+                  ? post.userEmail
+                      .substring(0, post.userEmail.indexOf("@"))
+                      .slice(0, 13) + "..."
                   : post.userEmail.substring(0, post.userEmail.indexOf("@"))}
               </span>
               <span className="mx-1">•</span>
@@ -98,7 +112,10 @@ function CommunityPosts() {
             />
           </div>
 
-          <Link to={`/account/community-posts/${post._id}`} className="block group">
+          <Link
+            to={`/account/community-posts/${post._id}`}
+            className="block group"
+          >
             <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-200 line-clamp-1">
               {post.postTitle}
             </h3>
@@ -109,7 +126,10 @@ function CommunityPosts() {
 
           <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
             <span className="text-xs text-gray-400">{post.postTime}</span>
-            <Link to={`/account/community-posts/${post._id}`} className="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+            <Link
+              to={`/account/community-posts/${post._id}`}
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+            >
               Read more &rarr;
             </Link>
           </div>
@@ -140,13 +160,30 @@ function CommunityPosts() {
 
   let card = null;
   if (searchQuery) {
-    card =
-      searchedData.length ? searchedData.map((post) => buildCard(post)) : <div className="col-span-full text-center py10"><h2 className="text-xl text-gray-600">No posts found!</h2></div>;
+    card = searchedData.length ? (
+      searchedData.map((post) => buildCard(post))
+    ) : (
+      <div className="col-span-full text-center py10">
+        <h2 className="text-xl text-gray-600">No posts found!</h2>
+      </div>
+    );
   } else {
     if (postType === "allPosts") {
-      card = allPostsData.length ? allPostsData.map((post) => buildCard(post)) : <div className="col-span-full text-center py10"><h2 className="text-xl text-gray-600">No community posts yet!</h2></div>;
+      card = allPostsData.length ? (
+        allPostsData.map((post) => buildCard(post))
+      ) : (
+        <div className="col-span-full text-center py10">
+          <h2 className="text-xl text-gray-600">No community posts yet!</h2>
+        </div>
+      );
     } else if (postType === "myPosts") {
-      card = myPostsData.length ? myPostsData.map((post) => buildCard(post)) : <div className="col-span-full text-center py10"><h2 className="text-xl text-gray-600">You haven't posted yet!</h2></div>;
+      card = myPostsData.length ? (
+        myPostsData.map((post) => buildCard(post))
+      ) : (
+        <div className="col-span-full text-center py10">
+          <h2 className="text-xl text-gray-600">You haven't posted yet!</h2>
+        </div>
+      );
     }
   }
 
@@ -165,8 +202,12 @@ function CommunityPosts() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">PetOpia Community</h1>
-        <p className="text-gray-600">Connect with other pet owners and share your stories.</p>
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+          PetOpia Community
+        </h1>
+        <p className="text-gray-600">
+          Connect with other pet owners and share your stories.
+        </p>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
@@ -180,14 +221,21 @@ function CommunityPosts() {
               <option value="option2">My Posts</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
             </div>
           </div>
 
           <button
             onClick={() => handleNewModalOpen()}
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow transition duration-150 ease-in-out"
-          ><span className="mr-2 text-xl">+</span>
+          >
+            <span className="mr-2 text-xl">+</span>
             New Post
           </button>
         </div>

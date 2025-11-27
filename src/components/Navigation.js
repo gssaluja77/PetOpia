@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import SignOutButton from './SignOut';
-import logo from '../img/petopia-logo.svg';
+import React, { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import SignOutButton from "./SignOut";
+import logo from "../img/petopia-logo.svg";
 
 const Navigation = ({ userId, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,12 @@ const Navigation = ({ userId, handleChange }) => {
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="PetOpia Logo" className="h-8 w-auto" />
-                <span className="text-2xl text-primary tracking-wide font-bold" style={{ fontFamily: "'Leckerli One', cursive" }}>PetOpia</span>
+                <span
+                  className="text-2xl text-primary tracking-wide font-bold"
+                  style={{ fontFamily: "'Leckerli One', cursive" }}
+                >
+                  PetOpia
+                </span>
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -74,7 +79,11 @@ const Navigation = ({ userId, handleChange }) => {
             {userId ? (
               <>
                 <span className="text-gray-700 font-medium mr-4">
-                  Hi, <strong>{window.localStorage.getItem("userEmail")?.split('@')[0]}</strong>!
+                  Hi,{" "}
+                  <strong>
+                    {window.localStorage.getItem("userEmail")?.split("@")[0]}
+                  </strong>
+                  !
                 </span>
                 <SignOutButton handleChange={handleChange} />
               </>
@@ -193,12 +202,17 @@ const Navigation = ({ userId, handleChange }) => {
               {userId ? (
                 <div className="w-full flex items-center justify-between">
                   <span className="text-gray-700 font-medium mr-4">
-                    Hello, {window.localStorage.getItem("userEmail")?.split('@')[0]}!
+                    Hello,{" "}
+                    {window.localStorage.getItem("userEmail")?.split("@")[0]}!
                   </span>
                   <SignOutButton handleChange={handleChange} />
                 </div>
               ) : (
-                <Link to="/" onClick={() => setIsOpen(false)} className="w-full">
+                <Link
+                  to="/"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full"
+                >
                   <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
                     Sign In
                   </button>

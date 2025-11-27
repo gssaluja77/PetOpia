@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-const Appointments = ({ appointments, addAppointment, deleteAppointment, customStyles }) => {
+const Appointments = ({
+  appointments,
+  addAppointment,
+  deleteAppointment,
+  customStyles,
+}) => {
   const [isOpenApp, setIsOpenApp] = useState(false);
-  const [isHidden, setIsHidden] = useState(appointments && appointments.length > 0 ? false : true);
+  const [isHidden, setIsHidden] = useState(
+    appointments && appointments.length > 0 ? false : true
+  );
 
   function showApp() {
     setIsOpenApp(!isOpenApp);

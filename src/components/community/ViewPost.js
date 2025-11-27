@@ -20,7 +20,7 @@ function ViewPost() {
   const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null); // Track specific comment
   const [newModalOpen, setNewModalOpen] = useState(false);
-  const [comments, setComments] = useState(undefined);
+  const [comments, setComments] = useState([]);
   const [displayedError, setDisplayedError] = useState(null);
   const [isError, setIsError] = useState(null);
   let { postId } = useParams();
@@ -60,7 +60,7 @@ function ViewPost() {
       setIsError(false);
       setDisplayedError(null);
     }
-  }
+  };
 
   const handleEditModalOpen = () => {
     setEditModalOpen(true);
@@ -127,7 +127,9 @@ function ViewPost() {
     return (
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden my-8 border border-gray-200">
         <div className="border-b border-gray-200 px-6 py-4">
-          <h2 className="text-2xl font-bold text-gray-800">{viewPost.postTitle}</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            {viewPost.postTitle}
+          </h2>
         </div>
 
         {viewPost.postImage && (
@@ -142,17 +144,29 @@ function ViewPost() {
           <div className="space-y-3">
             <div className="flex justify-between items-center text-sm text-gray-600 border-b border-gray-100 pb-2">
               <span className="font-semibold">Posted By:</span>
-              <span>{viewPost && viewPost.userEmail.substring(0, viewPost.userEmail.indexOf("@"))}</span>
+              <span>
+                {viewPost &&
+                  viewPost.userEmail.substring(
+                    0,
+                    viewPost.userEmail.indexOf("@")
+                  )}
+              </span>
             </div>
 
             <div className="flex justify-between items-center text-sm text-gray-600 border-b border-gray-100 pb-2">
               <span className="font-semibold">Posted On:</span>
-              <span>{viewPost && `${viewPost.postDate} at ${viewPost.postTime}`}</span>
+              <span>
+                {viewPost && `${viewPost.postDate} at ${viewPost.postTime}`}
+              </span>
             </div>
 
             <div className="py-2">
-              <span className="font-semibold text-gray-700 block mb-1">Description:</span>
-              <p className="text-gray-600">{viewPost && viewPost.postDescription}</p>
+              <span className="font-semibold text-gray-700 block mb-1">
+                Description:
+              </span>
+              <p className="text-gray-600">
+                {viewPost && viewPost.postDescription}
+              </p>
             </div>
 
             <div className="flex items-center space-x-2 pt-2 border-t border-gray-100">
@@ -164,9 +178,7 @@ function ViewPost() {
               />
               <span className="text-sm text-gray-500">
                 {viewPost.postLikes.length !== 0 &&
-                  (viewPost.postLikes.length === 1
-                    ? "like"
-                    : "likes")}
+                  (viewPost.postLikes.length === 1 ? "like" : "likes")}
               </span>
             </div>
 
@@ -212,7 +224,9 @@ function ViewPost() {
         </div>
 
         <div className="bg-gray-50 px-6 py-6 border-t border-gray-200">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Comment Section</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4">
+            Comment Section
+          </h3>
 
           <form onSubmit={handleCommentAdded} className="mb-6">
             <div className="flex space-x-3">
@@ -231,10 +245,11 @@ function ViewPost() {
                 id="post-comment"
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
-                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
-                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
-                  }`}
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${
+                  isSubmitting || !commentValue.trim()
+                    ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>
@@ -244,7 +259,13 @@ function ViewPost() {
           {isError && <ErrorHandler error={displayedError} />}
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            {comment && comment.length ? comment : <p className="text-gray-500 text-center py-4">No Comments Posted!</p>}
+            {comment && comment.length ? (
+              comment
+            ) : (
+              <p className="text-gray-500 text-center py-4">
+                No Comments Posted!
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -253,7 +274,10 @@ function ViewPost() {
 
   const buildComment = (com) => {
     return (
-      <div key={com._id} className="border-b border-gray-100 last:border-0 py-4">
+      <div
+        key={com._id}
+        className="border-b border-gray-100 last:border-0 py-4"
+      >
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
@@ -266,12 +290,13 @@ function ViewPost() {
             </div>
             <p className="text-gray-700 mb-2">{com.comment}</p>
             <div className="flex items-center space-x-2">
-              <LikeUnlikeComment countFunction={handleChange} commentObj={com} />
+              <LikeUnlikeComment
+                countFunction={handleChange}
+                commentObj={com}
+              />
               <span className="text-xs text-gray-500">
                 {com.commentLikes.length !== 0 &&
-                  (com.commentLikes.length === 1
-                    ? "like"
-                    : "likes")}
+                  (com.commentLikes.length === 1 ? "like" : "likes")}
               </span>
             </div>
           </div>
@@ -315,8 +340,7 @@ function ViewPost() {
         <h2 className="text-2xl font-bold text-gray-600">Loading...</h2>
       </div>
     );
-  }
-  else if (viewPost) {
+  } else if (viewPost) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between mb-6">
@@ -325,7 +349,10 @@ function ViewPost() {
               Back to Community
             </button>
           </Link>
-          <button onClick={handleNewModalOpen} className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-150 font-medium">
+          <button
+            onClick={handleNewModalOpen}
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-150 font-medium"
+          >
             New Post
           </button>
         </div>
@@ -342,21 +369,24 @@ function ViewPost() {
           />
         )}
       </div>
-    )
-  }
-  else if (displayedError) {
+    );
+  } else if (displayedError) {
     return (
-      <ErrorHandler error={
-        <div className="text-center py10">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">{displayedError}</h1>
-          <Link to={`/account/community-posts`}>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 font-medium">
-              Back to Community
-            </button>
-          </Link>
-        </div>}
+      <ErrorHandler
+        error={
+          <div className="text-center py10">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              {displayedError}
+            </h1>
+            <Link to={`/account/community-posts`}>
+              <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 font-medium">
+                Back to Community
+              </button>
+            </Link>
+          </div>
+        }
       />
-    )
+    );
   }
 }
 

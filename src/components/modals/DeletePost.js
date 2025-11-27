@@ -15,13 +15,14 @@ const customStyles = {
     maxWidth: "400px",
     padding: "2rem",
     borderRadius: "0.75rem",
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+    boxShadow:
+      "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
     border: "none",
   },
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.75)",
     zIndex: 1000,
-  }
+  },
 };
 
 function DeletePost(props) {
@@ -59,7 +60,10 @@ function DeletePost(props) {
     >
       <div className="text-center">
         <h3 className="text-xl font-bold text-gray-900 mb-4">Delete Post</h3>
-        <p className="text-gray-500 mb-6">Are you sure you want to delete this post? This action cannot be undone.</p>
+        <p className="text-gray-500 mb-6">
+          Are you sure you want to delete this post? This action cannot be
+          undone.
+        </p>
 
         <form onSubmit={handleSubmit} className="flex justify-center space-x-4">
           <button
@@ -74,7 +78,7 @@ function DeletePost(props) {
             className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-150 flex items-center"
             disabled={axiosLoading}
           >
-            {axiosLoading ? 'Deleting...' : 'Yes, Delete'}
+            {axiosLoading ? "Deleting..." : "Yes, Delete"}
           </button>
         </form>
       </div>

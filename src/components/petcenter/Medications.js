@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-const Medications = ({ medications, addMedication, deleteMedication, customStyles }) => {
+const Medications = ({
+  medications,
+  addMedication,
+  deleteMedication,
+  customStyles,
+}) => {
   const [isOpenMed, setIsOpenMed] = useState(false);
-  const [isHidden, setIsHidden] = useState(medications && medications.length > 0 ? false : true);
+  const [isHidden, setIsHidden] = useState(
+    medications && medications.length > 0 ? false : true
+  );
 
   function showMed() {
     setIsOpenMed(!isOpenMed);

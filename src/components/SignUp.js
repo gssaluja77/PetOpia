@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { signup } from '../utils/auth';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { signup } from "../utils/auth";
 
 const SignUp = ({ handleChange }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   React.useEffect(() => {
     const userId = window.localStorage.getItem("userid");
     if (userId) {
-      navigate('/account/my-pets');
+      navigate("/account/my-pets");
     }
   }, [navigate]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email || !password || !confirmPassword) {
-      setError('Please fill in all fields.');
+      setError("Please fill in all fields.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError("Passwords do not match.");
       return;
     }
 
@@ -34,12 +34,12 @@ const SignUp = ({ handleChange }) => {
       const result = await signup(email, password);
       if (result.success) {
         handleChange();
-        navigate('/account/my-pets');
+        navigate("/account/my-pets");
       } else {
         setError(result.message);
       }
     } catch (err) {
-      setError('An unexpected error occurred.');
+      setError("An unexpected error occurred.");
     }
   };
 
@@ -51,8 +51,11 @@ const SignUp = ({ handleChange }) => {
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-700">
+            Already have an account?{" "}
+            <Link
+              to="/"
+              className="font-medium text-indigo-600 hover:text-indigo-700"
+            >
               Sign in
             </Link>
           </p>
@@ -110,9 +113,7 @@ const SignUp = ({ handleChange }) => {
           </div>
 
           {error && (
-            <div className="text-red-500 text-sm text-center">
-              {error}
-            </div>
+            <div className="text-red-500 text-sm text-center">{error}</div>
           )}
 
           <div>
