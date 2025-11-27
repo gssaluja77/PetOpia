@@ -16,7 +16,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
 import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
 import ErrorHandler from "./components/ErrorHandler";
-import { clearExpiredSession, updateLastActivity } from "./utils/session";
+import { isSessionExpired, updateLastActivity } from "./utils/session";
 
 function App() {
   const handleChange = () => {
@@ -27,8 +27,8 @@ function App() {
   const [userId, setUserId] = useState(window.localStorage.getItem("userid"));
 
   useEffect(() => {
-    const wasExpired = clearExpiredSession();
-    if (wasExpired) {
+    const isExpired = isSessionExpired();
+    if (isExpired) {
       setUserId(null);
     } else {
       setUserId(window.localStorage.getItem("userid"));
