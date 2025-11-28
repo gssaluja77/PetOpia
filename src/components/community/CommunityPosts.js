@@ -5,6 +5,7 @@ import NewPost from "../modals/NewPost";
 import LikeUnlikePost from "./LikeUnlikePost";
 import SearchPosts from "./SearchPosts";
 import ErrorHandler from "../ErrorHandler";
+import { useDebounce } from "../../utils/hooks/useDebounce";
 
 function CommunityPosts() {
   const userId = window.localStorage.getItem("userid");
@@ -19,17 +20,18 @@ function CommunityPosts() {
   const [postType, setPostType] = useState("allPosts");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedData, setSearchedData] = useState([]);
+  const debouncedSearchQuery = useDebounce(searchQuery);
 
   useEffect(() => {
     const getPostsData = async () => {
       try {
         const response = await axios.get(
-          `/community-posts?page=${currentPage}&keyword=${searchQuery}`
+          `/community-posts?page=${currentPage}&keyword=${debouncedSearchQuery}`
         );
         const { allPostsData, allPosts, numberOfDocs, limit } =
           response.data.allData;
 
-        if (searchQuery) {
+        if (debouncedSearchQuery) {
           const { searchedData } = response.data;
           setSearchedData(searchedData);
         } else {
@@ -50,7 +52,7 @@ function CommunityPosts() {
       }
     };
     getPostsData();
-  }, [currentPage, count, searchQuery, userId]);
+  }, [currentPage, count, debouncedSearchQuery, userId]);
 
   const handleNewModalOpen = () => {
     setNewModalOpen(true);
@@ -159,7 +161,7 @@ function CommunityPosts() {
   };
 
   let card = null;
-  if (searchQuery) {
+  if (debouncedSearchQuery) {
     card = searchedData.length ? (
       searchedData.map((post) => buildCard(post))
     ) : (
@@ -249,7 +251,7 @@ function CommunityPosts() {
         {card}
       </div>
 
-      {!searchQuery && postType === "allPosts" && (
+      {!debouncedSearchQuery && postType === "allPosts" && (
         <div className="flex justify-center space-x-4 mt-8">
           {!firstPage && (
             <button
