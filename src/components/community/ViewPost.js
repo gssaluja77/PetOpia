@@ -18,7 +18,7 @@ function ViewPost() {
   const [count, setCount] = useState(0);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
-  const [commentToDelete, setCommentToDelete] = useState(null); // Track specific comment
+  const [commentToDelete, setCommentToDelete] = useState(null);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [displayedError, setDisplayedError] = useState(null);
@@ -303,7 +303,7 @@ function ViewPost() {
 
           {com.userEmail === userEmail && (
             <button
-              onClick={() => handleCommentDeleteModalOpen(com._id)} // Pass comment ID
+              onClick={() => handleCommentDeleteModalOpen(com._id)}
               className="text-red-500 hover:text-red-700 text-sm font-medium ml-2"
             >
               Delete

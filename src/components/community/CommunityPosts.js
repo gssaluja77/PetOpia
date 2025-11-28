@@ -113,18 +113,12 @@ function CommunityPosts() {
               post={post}
             />
           </div>
-
-          <Link
-            to={`/account/community-posts/${post._id}`}
-            className="block group"
-          >
-            <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-200 line-clamp-1">
-              {post.postTitle}
-            </h3>
-            <p className="text-sm text-gray-600 line-clamp-3 mb-4">
-              {post.postDescription}
-            </p>
-          </Link>
+          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-200 line-clamp-1">
+            {post.postTitle}
+          </h3>
+          <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+            {post.postDescription}
+          </p>
 
           <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
             <span className="text-xs text-gray-400">{post.postTime}</span>
