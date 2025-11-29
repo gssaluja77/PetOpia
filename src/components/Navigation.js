@@ -80,10 +80,7 @@ const Navigation = ({ userId, handleChange }) => {
               <>
                 <span className="text-gray-700 font-medium mr-4">
                   Hi,{" "}
-                  <strong>
-                    {window.localStorage.getItem("userEmail")?.split("@")[0]}
-                  </strong>
-                  !
+                  <strong>{window.localStorage.getItem("firstName")}!</strong>!
                 </span>
                 <SignOutButton handleChange={handleChange} />
               </>
@@ -202,8 +199,7 @@ const Navigation = ({ userId, handleChange }) => {
               {userId ? (
                 <div className="w-full flex items-center justify-between">
                   <span className="text-gray-700 font-medium mr-4">
-                    Hello,{" "}
-                    {window.localStorage.getItem("userEmail")?.split("@")[0]}!
+                    Hello, {window.localStorage.getItem("firstName")}!
                   </span>
                   <SignOutButton handleChange={handleChange} />
                 </div>

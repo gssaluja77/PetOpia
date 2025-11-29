@@ -3,8 +3,7 @@
 #### Description
 
 PetOpia is a Pet Health Management Platform that aims to help users to manage their pets’ health and well-
-being by tracking their essential needs like vaccination, medication, medical check-ups, etc. Users can set
-reminders for pets medication, or doctor’s appointments. Other features include pet adoption resources.
+being by tracking their essential needs like vaccination, medication, medical check-ups, etc. Users can also set doctor’s appointments. Other features include pet adoption resources.
 
 Pet owners will have a community to share queries about their pets and get tips and suggestions from other
 users via the comment section. Users will also be able to upvote any comment. The most upvoted comment

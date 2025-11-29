@@ -1,14 +1,20 @@
-import axios from '../api/axios';
+import axios from "../api/axios";
 
-const CURRENT_USER_KEY = 'userid';
+const CURRENT_USER_KEY = "userid";
 
-export const signup = async (email, password) => {
+export const signup = async (firstName, lastName, email, password) => {
   try {
-    const response = await axios.post('/user/signup', { email, password });
+    const response = await axios.post("/user/signup", {
+      firstName,
+      lastName,
+      email,
+      password,
+    });
     if (response.data) {
       if (response.data.id) {
         const now = Date.now();
         localStorage.setItem(CURRENT_USER_KEY, response.data.id);
+        localStorage.setItem("firstName", firstName);
         localStorage.setItem("userEmail", email);
         localStorage.setItem("loginTime", now.toString());
         localStorage.setItem("lastActivity", now.toString());
@@ -19,18 +25,20 @@ export const signup = async (email, password) => {
   } catch (error) {
     return {
       success: false,
-      message: error.response?.data?.error || 'Authentication failed'
+      message: error.response?.data?.error || "Authentication failed",
     };
   }
 };
 
 export const login = async (email, password) => {
   try {
-    const response = await axios.post('/user/login', { email, password });
+    const response = await axios.post("/user/login", { email, password });
     if (response.data) {
       if (response.data.id) {
         const now = Date.now();
+        console.log(response.data.firstName);
         localStorage.setItem(CURRENT_USER_KEY, response.data.id);
+        localStorage.setItem("firstName", response.data.firstName);
         localStorage.setItem("userEmail", email);
         localStorage.setItem("loginTime", now.toString());
         localStorage.setItem("lastActivity", now.toString());
@@ -41,13 +49,14 @@ export const login = async (email, password) => {
   } catch (error) {
     return {
       success: false,
-      message: error.response?.data?.error || 'Login failed'
+      message: error.response?.data?.error || "Login failed",
     };
   }
 };
 
 export const logout = () => {
   localStorage.removeItem(CURRENT_USER_KEY);
+  localStorage.removeItem("firstName");
   localStorage.removeItem("userEmail");
   localStorage.removeItem("loginTime");
   localStorage.removeItem("lastActivity");
