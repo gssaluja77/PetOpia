@@ -9,7 +9,7 @@ const SignIn = ({ handleChange }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const userId = window.localStorage.getItem("userid");
+    const userId = window.localStorage.getItem("userId");
     if (userId) {
       navigate("/account/my-pets");
     }

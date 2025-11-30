@@ -8,7 +8,7 @@ import ErrorHandler from "../ErrorHandler";
 import { useDebounce } from "../../utils/hooks/useDebounce";
 
 function CommunityPosts() {
-  const userId = window.localStorage.getItem("userid");
+  const userId = window.localStorage.getItem("userId");
   const [firstPage, setFirstPage] = useState(false);
   const [lastPage, setLastPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

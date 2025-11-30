@@ -24,14 +24,14 @@ function App() {
   };
 
   const [count, setCount] = useState(0);
-  const [userId, setUserId] = useState(window.localStorage.getItem("userid"));
+  const [userId, setUserId] = useState(window.localStorage.getItem("userId"));
 
   useEffect(() => {
     const isExpired = isSessionExpired();
     if (isExpired) {
       setUserId(null);
     } else {
-      setUserId(window.localStorage.getItem("userid"));
+      setUserId(window.localStorage.getItem("userId"));
     }
   }, [count]);
 

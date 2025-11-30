@@ -13,7 +13,7 @@ export const isSessionExpired = () => {
   const timeSinceActivity = now - parseInt(lastActivity);
 
   if (timeSinceActivity > SESSION_DURATION) {
-    localStorage.removeItem("userid");
+    localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("loginTime");
     localStorage.removeItem("lastActivity");
@@ -23,7 +23,7 @@ export const isSessionExpired = () => {
 };
 
 export const updateLastActivity = () => {
-  const userId = localStorage.getItem("userid");
+  const userId = localStorage.getItem("userId");
   if (userId) {
     localStorage.setItem("lastActivity", Date.now().toString());
   }

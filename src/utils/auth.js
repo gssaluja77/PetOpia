@@ -1,6 +1,6 @@
 import axios from "../api/axios";
 
-const CURRENT_USER_KEY = "userid";
+const CURRENT_USER_KEY = "userId";
 
 export const signup = async (firstName, lastName, email, password) => {
   try {
