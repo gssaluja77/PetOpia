@@ -75,10 +75,17 @@ const Navigation = ({ userId, handleChange }) => {
               </NavLink>
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+          <div className="gap-x-4 hidden sm:ml-6 sm:flex sm:items-center">
+            <button
+              title="Refresh"
+              onClick={() => window.location.reload()}
+              className="text-xl bg-transparent border-none p-0 m-0 cursor-pointer"
+            >
+              &#8635;
+            </button>
             {userId ? (
               <>
-                <span className="text-gray-700 font-medium mr-4">
+                <span className="text-gray-700 font-medium">
                   Hi,{" "}
                   <strong>{window.localStorage.getItem("firstName")}!</strong>
                 </span>
@@ -92,7 +99,14 @@ const Navigation = ({ userId, handleChange }) => {
               </Link>
             )}
           </div>
-          <div className="-mr-2 flex items-center sm:hidden">
+          <div className="gap-3 flex items-center sm:hidden">
+            <button
+              title="Refresh"
+              onClick={() => window.location.reload()}
+              className="text-xl bg-transparent border-none p-0 m-0 cursor-pointer"
+            >
+              &#8635;
+            </button>
             <button
               onClick={toggleMenu}
               type="button"
