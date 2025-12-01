@@ -42,6 +42,8 @@ export const login = async (email, password) => {
         console.log(response.data.firstName);
         localStorage.setItem(CURRENT_USER_KEY, response.data.id);
         localStorage.setItem("firstName", response.data.firstName);
+        localStorage.setItem("lastName", response.data.lastName);
+        localStorage.setItem("username", response.data.username);
         localStorage.setItem("userEmail", email);
         localStorage.setItem("loginTime", now.toString());
         localStorage.setItem("lastActivity", now.toString());
@@ -60,6 +62,8 @@ export const login = async (email, password) => {
 export const logout = () => {
   localStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem("firstName");
+  localStorage.removeItem("lastName");
+  localStorage.removeItem("username");
   localStorage.removeItem("userEmail");
   localStorage.removeItem("loginTime");
   localStorage.removeItem("lastActivity");
