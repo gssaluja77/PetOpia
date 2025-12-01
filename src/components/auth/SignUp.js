@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signup } from "../utils/auth";
+import { signup } from "../../utils/auth";
 
 const SignUp = ({ handleChange }) => {
   const [firstName, setFirstName] = useState("");
@@ -11,8 +11,8 @@ const SignUp = ({ handleChange }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const userId = window.localStorage.getItem("userId");
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
     if (userId) {
       navigate("/account/my-pets");
     }

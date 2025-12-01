@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import SignOutButton from "./SignOut";
+import SignOutButton from "./auth/SignOut";
 import logo from "../img/petopia-logo.svg";
 
 const Navigation = ({ userId, handleChange }) => {
@@ -87,7 +87,7 @@ const Navigation = ({ userId, handleChange }) => {
               <>
                 <span className="text-gray-700 font-medium">
                   Hi,{" "}
-                  <strong>{window.localStorage.getItem("firstName")}!</strong>
+                  <strong>{localStorage.getItem("firstName")}!</strong>
                 </span>
                 <SignOutButton handleChange={handleChange} />
               </>
@@ -214,7 +214,7 @@ const Navigation = ({ userId, handleChange }) => {
                 <div className="w-full flex items-center justify-between">
                   <span className="text-gray-700 font-medium mr-4">
                     Hi,{" "}
-                    <strong>{window.localStorage.getItem("firstName")}!</strong>
+                    <strong>{localStorage.getItem("firstName")}!</strong>
                   </span>
                   <SignOutButton handleChange={handleChange} />
                 </div>

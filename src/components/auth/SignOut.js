@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "../utils/auth";
+import { logout } from "../../utils/auth";
 
 const SignOutButton = ({ handleChange }) => {
   const navigate = useNavigate();

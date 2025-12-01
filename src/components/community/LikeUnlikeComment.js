@@ -3,7 +3,7 @@ import axios from "../../api/axios";
 import { useParams } from "react-router-dom";
 
 const LikeUnlikeComment = (props) => {
-  const userId = window.localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const { postId } = useParams();
   const [liked, setLiked] = useState(
     props.commentObj.commentLikes.includes(userId)

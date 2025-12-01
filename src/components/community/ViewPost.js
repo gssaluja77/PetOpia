@@ -11,8 +11,8 @@ import LikeUnlikeComment from "./LikeUnlikeComment";
 import ErrorHandler from "../ErrorHandler";
 
 function ViewPost() {
-  const userId = window.localStorage.getItem("userId");
-  let userEmail = window.localStorage.getItem("userEmail");
+  const userId = localStorage.getItem("userId");
+  let userEmail = localStorage.getItem("userEmail");
   const [viewPost, setViewPost] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);

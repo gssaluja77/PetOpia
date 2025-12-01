@@ -10,8 +10,8 @@ import CommunityPosts from "./components/community/CommunityPosts";
 import ViewPost from "./components/community/ViewPost";
 import "./App.css";
 import AdoptPet from "./components/AdoptPet";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import SignIn from "./components/auth/SignIn";
+import SignUp from "./components/auth/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
 import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
@@ -24,14 +24,14 @@ function App() {
   };
 
   const [count, setCount] = useState(0);
-  const [userId, setUserId] = useState(window.localStorage.getItem("userId"));
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
 
   useEffect(() => {
     const isExpired = isSessionExpired();
     if (isExpired) {
       setUserId(null);
     } else {
-      setUserId(window.localStorage.getItem("userId"));
+      setUserId(localStorage.getItem("userId"));
     }
   }, [count]);
 
