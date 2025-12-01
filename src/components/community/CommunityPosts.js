@@ -151,9 +151,9 @@ function CommunityPosts() {
     setCurrentPage(currentPage - 1);
   };
 
-  let card = null;
+  let cards = null;
   if (debouncedSearchQuery) {
-    card = searchedData.length ? (
+    cards = searchedData.length ? (
       searchedData.map((post) => buildCard(post))
     ) : (
       <div className="col-span-full text-center py10">
@@ -162,7 +162,7 @@ function CommunityPosts() {
     );
   } else {
     if (postType === "allPosts") {
-      card = allPostsData.length ? (
+      cards = allPostsData.length ? (
         allPostsData.map((post) => buildCard(post))
       ) : (
         <div className="col-span-full text-center py10">
@@ -170,7 +170,7 @@ function CommunityPosts() {
         </div>
       );
     } else if (postType === "myPosts") {
-      card = myPostsData.length ? (
+      cards = myPostsData.length ? (
         myPostsData.map((post) => buildCard(post))
       ) : (
         <div className="col-span-full text-center py10">
@@ -239,7 +239,7 @@ function CommunityPosts() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-        {card}
+        {cards}
       </div>
 
       {!debouncedSearchQuery && postType === "allPosts" && (

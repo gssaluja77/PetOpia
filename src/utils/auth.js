@@ -39,7 +39,6 @@ export const login = async (email, password) => {
     if (response.data) {
       if (response.data.id) {
         const now = Date.now();
-        console.log(response.data.firstName);
         localStorage.setItem(CURRENT_USER_KEY, response.data.id);
         localStorage.setItem("firstName", response.data.firstName);
         localStorage.setItem("lastName", response.data.lastName);
