@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import { useParams } from "react-router-dom";
 
 const LikeUnlikeComment = (props) => {

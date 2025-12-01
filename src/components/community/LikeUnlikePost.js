@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 
 const LikeUnlikePost = (props) => {
   const userId = localStorage.getItem("userId");

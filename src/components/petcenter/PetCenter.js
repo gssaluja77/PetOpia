@@ -1,4 +1,4 @@
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -100,7 +100,7 @@ const PetCenterHome = () => {
         const formData = new FormData();
         formData.append("image", petImage);
         axios
-          .post("/api/upload", formData, {
+          .post("/upload", formData, {
             headers: { "Content-Type": "multipart/form-data" },
           })
           .then((response) => {
@@ -620,7 +620,7 @@ const PetInfo = () => {
         const formData = new FormData();
         formData.append("image", petImageFile);
         axios
-          .post("/api/upload", formData, {
+          .post("/upload", formData, {
             headers: { "Content-Type": "multipart/form-data" },
           })
           .then((response) => {

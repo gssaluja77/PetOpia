@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 
 const Prescriptions = ({
   prescriptions,
@@ -30,7 +30,7 @@ const Prescriptions = ({
     formData.append("image", presImg);
 
     axios
-      .post("/api/upload", formData, {
+      .post("/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {

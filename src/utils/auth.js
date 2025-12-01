@@ -1,12 +1,13 @@
-import axios from "../api/axios";
+import axios from "../utils/axios";
 
 const CURRENT_USER_KEY = "userId";
 
-export const signup = async (firstName, lastName, email, password) => {
+export const signup = async (firstName, lastName, username, email, password) => {
   try {
     const response = await axios.post("/user/signup", {
       firstName,
       lastName,
+      username,
       email,
       password,
     });
@@ -15,6 +16,8 @@ export const signup = async (firstName, lastName, email, password) => {
         const now = Date.now();
         localStorage.setItem(CURRENT_USER_KEY, response.data.id);
         localStorage.setItem("firstName", firstName);
+        localStorage.setItem("lastName", lastName);
+        localStorage.setItem("username", username);
         localStorage.setItem("userEmail", email);
         localStorage.setItem("loginTime", now.toString());
         localStorage.setItem("lastActivity", now.toString());
