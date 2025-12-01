@@ -285,7 +285,9 @@ function ViewPost() {
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="font-bold text-gray-800">{com.username}</span>
+              <span className="font-bold text-gray-800">
+                {com.userThatPosted === userId ? "You" : com.username}
+              </span>
               <span className="text-xs text-gray-500">
                 {com.commentDate}, {com.commentTime}
               </span>
