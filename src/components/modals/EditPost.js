@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import Modal from "react-modal";
 import ErrorHandler from "../ErrorHandler";
 
@@ -99,7 +99,7 @@ function EditPost(props) {
       formData.append("image", postImage);
 
       axios
-        .post("/api/upload", formData, {
+        .post("/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {

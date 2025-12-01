@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");
@@ -28,7 +28,9 @@ const customStyles = {
 
 function NewPost(props) {
   const userId = localStorage.getItem("userId");
-  let userEmail = localStorage.getItem("userEmail");
+  const username = localStorage.getItem("username");
+  const firstName = localStorage.getItem("firstName");
+  const lastName = localStorage.getItem("lastName");
   const [postImage, setPostImage] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
@@ -82,7 +84,7 @@ function NewPost(props) {
       formData.append("image", postImage);
 
       axios
-        .post("/api/upload", formData, {
+        .post("/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
@@ -91,7 +93,9 @@ function NewPost(props) {
           axios
             .post("/community-posts/", {
               userThatPosted: userId,
-              userEmail: userEmail,
+              username: firstName,
+              firstName: username,
+              lastName: lastName,
               postImage: response.data.url,
               postTitle: postTitle,
               postDescription: postDescription,
@@ -116,7 +120,9 @@ function NewPost(props) {
       axios
         .post("/community-posts/", {
           userThatPosted: userId,
-          userEmail: userEmail,
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
           postImage: null,
           postTitle: postTitle,
           postDescription: postDescription,

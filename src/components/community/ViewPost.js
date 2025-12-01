@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import { useParams, Link } from "react-router-dom";
 import "../../App.css";
 import EditPost from "../modals/EditPost";
@@ -12,7 +12,8 @@ import ErrorHandler from "../ErrorHandler";
 
 function ViewPost() {
   const userId = localStorage.getItem("userId");
-  let userEmail = localStorage.getItem("userEmail");
+  const userEmail = localStorage.getItem("userEmail");
+  const username = localStorage.getItem("username");
   const [viewPost, setViewPost] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
@@ -24,10 +25,9 @@ function ViewPost() {
   const [displayedError, setDisplayedError] = useState(null);
   const [isError, setIsError] = useState(null);
   let { postId } = useParams();
-  let comment;
-
   const [commentValue, setCommentValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  let comment;
 
   useEffect(() => {
     const getPostsAndComments = async () => {
@@ -109,6 +109,7 @@ function ViewPost() {
       .post(`/view-post/${postId}`, {
         userThatPosted: userId,
         comment: commentValue,
+        username: username,
         userEmail: userEmail,
       })
       .then((response) => {
@@ -146,10 +147,13 @@ function ViewPost() {
               <span className="font-semibold">Posted By:</span>
               <span>
                 {viewPost &&
-                  viewPost.userEmail.substring(
-                    0,
-                    viewPost.userEmail.indexOf("@")
-                  )}
+                  viewPost.firstName +
+                    " " +
+                    viewPost.lastName +
+                    " " +
+                    "(" +
+                    viewPost.username +
+                    ")"}
               </span>
             </div>
 
@@ -281,9 +285,7 @@ function ViewPost() {
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
-              <span className="font-bold text-gray-800">
-                {com.userEmail.substring(0, com.userEmail.indexOf("@"))}
-              </span>
+              <span className="font-bold text-gray-800">{com.username}</span>
               <span className="text-xs text-gray-500">
                 {com.commentDate}, {com.commentTime}
               </span>

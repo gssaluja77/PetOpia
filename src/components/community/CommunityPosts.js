@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import axios from "../../utils/axios";
 import { Link } from "react-router-dom";
 import NewPost from "../modals/NewPost";
 import LikeUnlikePost from "./LikeUnlikePost";
@@ -97,12 +97,9 @@ function CommunityPosts() {
               <span className="font-medium text-gray-700">
                 {post.userThatPosted === userId
                   ? "You"
-                  : post.userEmail.substring(0, post.userEmail.indexOf("@"))
-                      .length > 13
-                  ? post.userEmail
-                      .substring(0, post.userEmail.indexOf("@"))
-                      .slice(0, 13) + "..."
-                  : post.userEmail.substring(0, post.userEmail.indexOf("@"))}
+                  : post.username.length > 13
+                  ? post.username.slice(0, 13) + "..."
+                  : post.username}
               </span>
               <span className="mx-1">•</span>
               <span>{post.postDate}</span>

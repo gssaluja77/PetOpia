@@ -5,6 +5,7 @@ import { signup } from "../../utils/auth";
 const SignUp = ({ handleChange }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,7 +23,7 @@ const SignUp = ({ handleChange }) => {
     e.preventDefault();
     setError("");
 
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
     }
@@ -33,7 +34,7 @@ const SignUp = ({ handleChange }) => {
     }
 
     try {
-      const result = await signup(firstName, lastName, email, password);
+      const result = await signup(firstName, lastName, username, email, password);
       if (result.success) {
         handleChange();
         navigate("/account/my-pets");
@@ -94,6 +95,22 @@ const SignUp = ({ handleChange }) => {
                 placeholder="Last Name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="username" className="sr-only">
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-600 focus:border-indigo-600 focus:z-10 sm:text-sm"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
