@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { signup as signupAPI } from "../../utils/auth";
 import { useAuth } from "../../context/AuthContext";
 
-const SignUp = ({ handleChange }) => {
+const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -38,7 +38,6 @@ const SignUp = ({ handleChange }) => {
       const result = await signupAPI(firstName, lastName, username, email, password);
       if (result.success) {
         login(result.user);
-        handleChange();
         navigate("/account/my-pets");
       } else {
         setError(result.message);

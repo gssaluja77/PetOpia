@@ -4,7 +4,7 @@ import SignOutButton from "./auth/SignOut";
 import logo from "../img/petopia-logo.svg";
 import { useAuth } from "../context/AuthContext";
 
-const Navigation = ({ userId, handleChange }) => {
+const Navigation = ({ userId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { firstName } = useAuth();
 
@@ -90,7 +90,7 @@ const Navigation = ({ userId, handleChange }) => {
                 <span className="text-gray-700 font-medium">
                   Hi, <strong>{firstName}!</strong>
                 </span>
-                <SignOutButton handleChange={handleChange} />
+                <SignOutButton />
               </>
             ) : (
               <Link to="/">
@@ -216,7 +216,7 @@ const Navigation = ({ userId, handleChange }) => {
                   <span className="text-gray-700 font-medium mr-4">
                     Hi, <strong>{firstName}!</strong>
                   </span>
-                  <SignOutButton handleChange={handleChange} />
+                  <SignOutButton />
                 </div>
               ) : (
                 <Link

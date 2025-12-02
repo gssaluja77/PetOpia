@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,11 +20,6 @@ import { isSessionExpired } from "./utils/session";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
 function AppContent() {
-  const handleChange = () => {
-    setCount(count + 1);
-  };
-
-  const [count, setCount] = useState(0);
   const { userId, loginTime, lastActivity, logout, updateActivity } = useAuth();
 
   useEffect(() => {
@@ -34,7 +29,7 @@ function AppContent() {
         logout();
       }
     }
-  }, [count, userId, loginTime, lastActivity, logout]);
+  }, [userId, loginTime, lastActivity, logout]);
 
   const handleActivity = () => {
     if (userId) {
@@ -46,7 +41,7 @@ function AppContent() {
     <div className="App-container flex flex-col min-h-screen" onClick={handleActivity}>
       <Router>
         <div className="flex-grow">
-          <Navigation userId={userId} handleChange={handleChange} />
+          <Navigation userId={userId} />
           <Routes>
             <Route path="/adoptpet" element={<AdoptPet />} />
             <Route path="/account" element={<PrivateRoute />}>
@@ -61,11 +56,11 @@ function AppContent() {
             </Route>
             <Route
               path="/"
-              element={<SignIn handleChange={handleChange} />}
+              element={<SignIn />}
             />
             <Route
               path="/signup"
-              element={<SignUp handleChange={handleChange} />}
+              element={<SignUp />}
             />
             <Route
               path="*"

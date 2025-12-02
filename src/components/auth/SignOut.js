@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-const SignOutButton = ({ handleChange }) => {
+const SignOutButton = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
   const handleSignOut = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent click from bubbling to App's handleActivity
     logout();
-    handleChange();
     navigate("/");
   };
 

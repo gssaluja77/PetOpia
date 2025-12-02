@@ -30,7 +30,7 @@ const customStyles = {
 
 function EditPost(props) {
   const { userId } = useAuth();
-  const [postImage, setPostImage] = useState("");
+  const [postImage, setPostImage] = useState(null);
   const [postTitle, setPostTitle] = useState(props.oldDetails.postTitle);
   const [postDescription, setPostDescription] = useState(
     props.oldDetails.postDescription
@@ -50,13 +50,9 @@ function EditPost(props) {
   };
 
   const handleImageChange = (event) => {
-    if (event.target.files[0] && props.oldDetails.postImage) {
+    if (event.target.files[0]) {
       setPostImage(event.target.files[0]);
       setChecked(false);
-    } else if (event.target.files[0]) {
-      setPostImage(event.target.files[0]);
-    } else if (checked) {
-      setPostImage("");
     }
   };
 
@@ -95,7 +91,8 @@ function EditPost(props) {
     setIsError(false);
     setIsDescError(false);
 
-    if (postImage) {
+    // Check if user selected a new image file to upload
+    if (postImage && typeof postImage === 'object' && postImage instanceof File) {
       const formData = new FormData();
       formData.append("image", postImage);
 
@@ -104,8 +101,6 @@ function EditPost(props) {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
-          setPostImage(response.data.url);
-
           axios
             .put(`/community-posts/${props.oldDetails.postId}`, {
               userThatPosted: userId,
@@ -114,13 +109,11 @@ function EditPost(props) {
               postDescription: postDescription,
             })
             .then(() => {
-              setAxiosLoading(false);
-              setServerError(false);
-              setPostImage("");
+              setPostImage(null);
               setPostTitle("");
               setPostDescription("");
               handleCloseModal();
-              setChecked(false);
+              setAxiosLoading(false);
             })
             .catch((error) => {
               setAxiosLoading(false);
@@ -128,8 +121,12 @@ function EditPost(props) {
               setDisplayedError(error.response.data);
             });
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setAxiosLoading(false);
+        });
     } else {
+      // No new image - either keep old or remove based on checkbox status
       axios
         .put(`/community-posts/${props.oldDetails.postId}`, {
           userThatPosted: userId,
@@ -138,13 +135,11 @@ function EditPost(props) {
           postDescription: postDescription,
         })
         .then(() => {
-          setAxiosLoading(false);
-          setServerError(false);
-          setPostImage("");
+          setPostImage(null);
           setPostTitle("");
           setPostDescription("");
           handleCloseModal();
-          setChecked(false);
+          setAxiosLoading(false);
         })
         .catch((error) => {
           setAxiosLoading(false);

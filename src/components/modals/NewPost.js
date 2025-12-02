@@ -29,7 +29,7 @@ const customStyles = {
 
 function NewPost(props) {
   const { userId, username, firstName, lastName } = useAuth();
-  const [postImage, setPostImage] = useState("");
+  const [postImage, setPostImage] = useState(null);
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
   const [isOpen, setIsOpen] = useState(props.isOpen);
