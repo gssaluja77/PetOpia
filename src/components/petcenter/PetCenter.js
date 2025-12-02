@@ -6,12 +6,12 @@ import ErrorHandler from "../ErrorHandler";
 import Medications from "./Medications";
 import Appointments from "./Appointments";
 import Prescriptions from "./Prescriptions";
+import { useAuth } from "../../context/AuthContext";
 
 Modal.setAppElement("#root");
-let userId;
 
 const PetCenterHome = () => {
-  userId = localStorage.getItem("userId");
+  const { userId } = useAuth();
   const [loading, setLoading] = useState(true);
   const [getMyPets, setMyPets] = useState([]);
   const [isOpenPet, setIsOpenPet] = useState(false);
@@ -380,7 +380,7 @@ const PetCenterHome = () => {
 };
 
 const PetInfo = () => {
-  userId = localStorage.getItem("userId");
+  const { userId } = useAuth();
 
   let [loading, setLoading] = useState(true);
   let [getMyPets, setMyPets] = useState(undefined);
@@ -830,8 +830,8 @@ const PetInfo = () => {
                   {removeImage
                     ? "Photo will be removed"
                     : petImageFile
-                    ? "New Photo Selected"
-                    : "Upload New Photo"}
+                      ? "New Photo Selected"
+                      : "Upload New Photo"}
                 </label>
                 {!removeImage && (
                   <input
