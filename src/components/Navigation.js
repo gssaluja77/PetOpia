@@ -2,9 +2,11 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import SignOutButton from "./auth/SignOut";
 import logo from "../img/petopia-logo.svg";
+import { useAuth } from "../context/AuthContext";
 
 const Navigation = ({ userId, handleChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { firstName } = useAuth();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -86,8 +88,7 @@ const Navigation = ({ userId, handleChange }) => {
             {userId ? (
               <>
                 <span className="text-gray-700 font-medium">
-                  Hi,{" "}
-                  <strong>{localStorage.getItem("firstName")}!</strong>
+                  Hi, <strong>{firstName}!</strong>
                 </span>
                 <SignOutButton handleChange={handleChange} />
               </>
@@ -213,8 +214,7 @@ const Navigation = ({ userId, handleChange }) => {
               {userId ? (
                 <div className="w-full flex items-center justify-between">
                   <span className="text-gray-700 font-medium mr-4">
-                    Hi,{" "}
-                    <strong>{localStorage.getItem("firstName")}!</strong>
+                    Hi, <strong>{firstName}!</strong>
                   </span>
                   <SignOutButton handleChange={handleChange} />
                 </div>

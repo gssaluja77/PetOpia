@@ -6,9 +6,10 @@ import LikeUnlikePost from "./LikeUnlikePost";
 import SearchPosts from "./SearchPosts";
 import ErrorHandler from "../ErrorHandler";
 import { useDebounce } from "../../utils/hooks/useDebounce";
+import { useAuth } from "../../context/AuthContext";
 
 function CommunityPosts() {
-  const userId = localStorage.getItem("userId");
+  const { userId } = useAuth();
   const [firstPage, setFirstPage] = useState(false);
   const [lastPage, setLastPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -98,8 +99,8 @@ function CommunityPosts() {
                 {post.userThatPosted === userId
                   ? "You"
                   : post.username.length > 13
-                  ? post.username.slice(0, 13) + "..."
-                  : post.username}
+                    ? post.username.slice(0, 13) + "..."
+                    : post.username}
               </span>
               <span className="mx-1">•</span>
               <span>{post.postDate}</span>

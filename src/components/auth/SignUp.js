@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signup } from "../../utils/auth";
+import { signup as signupAPI } from "../../utils/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const SignUp = ({ handleChange }) => {
   const [firstName, setFirstName] = useState("");
@@ -11,13 +12,13 @@ const SignUp = ({ handleChange }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (userId) {
+    if (isAuthenticated()) {
       navigate("/account/my-pets");
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -34,8 +35,9 @@ const SignUp = ({ handleChange }) => {
     }
 
     try {
-      const result = await signup(firstName, lastName, username, email, password);
+      const result = await signupAPI(firstName, lastName, username, email, password);
       if (result.success) {
+        login(result.user);
         handleChange();
         navigate("/account/my-pets");
       } else {

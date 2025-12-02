@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const LikeUnlikeComment = (props) => {
-  const userId = localStorage.getItem("userId");
+  const { userId } = useAuth();
   const { postId } = useParams();
   const [liked, setLiked] = useState(
     props.commentObj.commentLikes.includes(userId)

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../utils/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const SignOutButton = ({ handleChange }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const handleSignOut = () => {
+  const handleSignOut = (e) => {
+    e.stopPropagation();
     logout();
     handleChange();
     navigate("/");

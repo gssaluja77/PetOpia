@@ -16,27 +16,30 @@ import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
 import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
 import ErrorHandler from "./components/ErrorHandler";
-import { isSessionExpired, updateLastActivity } from "./utils/session";
+import { isSessionExpired } from "./utils/session";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
-function App() {
+function AppContent() {
   const handleChange = () => {
     setCount(count + 1);
   };
 
   const [count, setCount] = useState(0);
-  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const { userId, loginTime, lastActivity, logout, updateActivity } = useAuth();
 
   useEffect(() => {
-    const isExpired = isSessionExpired();
-    if (isExpired) {
-      setUserId(null);
-    } else {
-      setUserId(localStorage.getItem("userId"));
+    if (userId) {
+      const isExpired = isSessionExpired(loginTime, lastActivity);
+      if (isExpired) {
+        logout();
+      }
     }
-  }, [count]);
+  }, [count, userId, loginTime, lastActivity, logout]);
 
   const handleActivity = () => {
-    updateLastActivity();
+    if (userId) {
+      updateActivity();
+    }
   };
 
   return (
@@ -98,6 +101,14 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

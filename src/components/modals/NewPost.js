@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
 import Modal from "react-modal";
+import { useAuth } from "../../context/AuthContext";
 
 Modal.setAppElement("#root");
 
@@ -27,10 +28,7 @@ const customStyles = {
 };
 
 function NewPost(props) {
-  const userId = localStorage.getItem("userId");
-  const username = localStorage.getItem("username");
-  const firstName = localStorage.getItem("firstName");
-  const lastName = localStorage.getItem("lastName");
+  const { userId, username, firstName, lastName } = useAuth();
   const [postImage, setPostImage] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
@@ -250,9 +248,8 @@ function NewPost(props) {
               <button
                 type="submit"
                 disabled={isError || isDescError}
-                className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out ${
-                  isError || isDescError ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-150 ease-in-out ${isError || isDescError ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
               >
                 Submit
               </button>

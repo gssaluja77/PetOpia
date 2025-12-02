@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
+import { useAuth } from "../../context/AuthContext";
 
 const LikeUnlikePost = (props) => {
-  const userId = localStorage.getItem("userId");
+  const { userId } = useAuth();
   const [liked, setLiked] = useState(props.post.postLikes.includes(userId));
   const [likesCount, setLikesCount] = useState(props.post.postLikes.length);
 

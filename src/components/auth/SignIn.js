@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../../utils/auth";
+import { login as loginAPI } from "../../utils/auth";
+import { useAuth } from "../../context/AuthContext";
 
 const SignIn = ({ handleChange }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (userId) {
+    if (isAuthenticated()) {
       navigate("/account/my-pets");
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,8 +22,9 @@ const SignIn = ({ handleChange }) => {
 
     if (email && password) {
       try {
-        const result = await login(email, password);
+        const result = await loginAPI(email, password);
         if (result.success) {
+          login(result.user);
           handleChange();
           navigate("/account/my-pets");
         } else {

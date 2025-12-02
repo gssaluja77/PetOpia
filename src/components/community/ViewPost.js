@@ -9,11 +9,10 @@ import NewPost from "../modals/NewPost";
 import LikeUnlikePost from "./LikeUnlikePost";
 import LikeUnlikeComment from "./LikeUnlikeComment";
 import ErrorHandler from "../ErrorHandler";
+import { useAuth } from "../../context/AuthContext";
 
 function ViewPost() {
-  const userId = localStorage.getItem("userId");
-  const userEmail = localStorage.getItem("userEmail");
-  const username = localStorage.getItem("username");
+  const { userId, userEmail, username } = useAuth();
   const [viewPost, setViewPost] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(0);
@@ -148,12 +147,12 @@ function ViewPost() {
               <span>
                 {viewPost &&
                   viewPost.firstName +
-                    " " +
-                    viewPost.lastName +
-                    " " +
-                    "(" +
-                    viewPost.username +
-                    ")"}
+                  " " +
+                  viewPost.lastName +
+                  " " +
+                  "(" +
+                  viewPost.username +
+                  ")"}
               </span>
             </div>
 
@@ -249,11 +248,10 @@ function ViewPost() {
                 id="post-comment"
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
-                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${
-                  isSubmitting || !commentValue.trim()
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
                     ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                     : "bg-indigo-600 text-white hover:bg-indigo-700"
-                }`}
+                  }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>
