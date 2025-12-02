@@ -91,8 +91,8 @@ function NewPost(props) {
           axios
             .post("/community-posts/", {
               userThatPosted: userId,
-              username: firstName,
-              firstName: username,
+              username: username,
+              firstName: firstName,
               lastName: lastName,
               postImage: response.data.url,
               postTitle: postTitle,

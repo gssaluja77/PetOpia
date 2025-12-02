@@ -23,7 +23,7 @@ function ViewPost() {
   const [comments, setComments] = useState([]);
   const [displayedError, setDisplayedError] = useState(null);
   const [isError, setIsError] = useState(null);
-  let { postId } = useParams();
+  const { postId } = useParams();
   const [commentValue, setCommentValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   let comment;
@@ -147,12 +147,12 @@ function ViewPost() {
               <span>
                 {viewPost &&
                   viewPost.firstName +
-                  " " +
-                  viewPost.lastName +
-                  " " +
-                  "(" +
-                  viewPost.username +
-                  ")"}
+                    " " +
+                    viewPost.lastName +
+                    " " +
+                    "(" +
+                    viewPost.username +
+                    ")"}
               </span>
             </div>
 
@@ -248,10 +248,11 @@ function ViewPost() {
                 id="post-comment"
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
-                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${
+                  isSubmitting || !commentValue.trim()
                     ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                     : "bg-indigo-600 text-white hover:bg-indigo-700"
-                  }`}
+                }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>
