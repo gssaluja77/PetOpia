@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signup as signupAPI } from "../../utils/auth";
 import { useAuth } from "../../context/AuthContext";
+import { trim } from "jquery";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -24,7 +25,12 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
 
-    if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    const trimmedUsername = username.trim().toLowerCase();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedFirstName || !trimmedLastName || !trimmedUsername || !trimmedEmail || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
     }
@@ -35,7 +41,7 @@ const SignUp = () => {
     }
 
     try {
-      const result = await signupAPI(firstName, lastName, username, email, password);
+      const result = await signupAPI(firstName, lastName, username.toLowerCase(), email.toLowerCase(), password);
       if (result.success) {
         login(result.user);
         navigate("/account/my-pets");
