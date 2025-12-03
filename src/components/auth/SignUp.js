@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signup as signupAPI } from "../../utils/auth";
 import { useAuth } from "../../context/AuthContext";
-import { trim } from "jquery";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
