@@ -28,9 +28,14 @@ function AdoptPet() {
           }
         );
         const t = await response.json();
-        setToken(t.access_token);
+        if (t.access_token) {
+          setToken(t.access_token);
+        } else {
+          setError("API authentication failed");
+        }
       } catch (e) {
-        console.error("Error fetching token:", e);
+        console.error(e);
+        setError("Unable to connect to the API");
       }
     }
     fetchToken();
@@ -38,21 +43,31 @@ function AdoptPet() {
 
   useEffect(() => {
     async function fetchData() {
-      await fetch(`https://api.petfinder.com/v2/animals?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.status === 401) {
-            console.error("Unauthorized access to PetFinder API");
-          }
-          setMaxPage(response.pagination ? response.pagination.total_pages : 1);
-          setData(response.animals);
+      try {
+        const response = await fetch(`https://api.petfinder.com/v2/animals?page=${page}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await response.json();
+
+        if (response.status === 401 || result.status === 401 || response.status === 403 || response.status === 403) {
+          console.error("Unauthorized access to PetFinder API");
+          setError("API authorization failed");
+          return;
+        }
+
+        if (result.animals) {
+          setMaxPage(result.pagination ? result.pagination.total_pages : 1);
+          setData(result.animals);
           setError(null);
-        })
-        .catch((error) => setError(error.message));
+        } else {
+          setError("Unable to load pets");
+        }
+      } catch (error) {
+        console.error(error);
+        setError("Unable to connect to the API");
+      }
     }
     if (token) {
       fetchData();
@@ -128,7 +143,20 @@ function AdoptPet() {
   };
 
   if (error) {
-    return <ErrorHandler error={error}></ErrorHandler>;
+    return (
+      <ErrorHandler
+        error={
+          <div className="text-center py-10">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              This page is under maintenance. We are working on it.
+            </h1>
+            <p className="text-gray-500 mt-2">
+              Please check back later for adoptable pets.
+            </p>
+          </div>
+        }
+      />
+    );
   }
 
   return (
@@ -147,11 +175,10 @@ function AdoptPet() {
         <button
           onClick={() => handlePrevios()}
           disabled={page <= 1}
-          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${
-            page <= 1
-              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
-          }`}
+          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${page <= 1
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+            }`}
         >
           &larr; Previous
         </button>
@@ -163,11 +190,10 @@ function AdoptPet() {
         <button
           onClick={() => handleNext()}
           disabled={page >= maxPage}
-          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${
-            page >= maxPage
-              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
-          }`}
+          className={`flex items-center px-4 py-2 rounded-md font-medium transition duration-150 ${page >= maxPage
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+            }`}
         >
           Next &rarr;
         </button>
@@ -188,22 +214,20 @@ function AdoptPet() {
           <button
             onClick={() => handlePrevios()}
             disabled={page <= 1}
-            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${
-              page <= 1
-                ? "hidden"
-                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
-            }`}
+            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${page <= 1
+              ? "hidden"
+              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+              }`}
           >
             &larr; Previous Page
           </button>
           <button
             onClick={() => handleNext()}
             disabled={page >= maxPage}
-            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${
-              page >= maxPage
-                ? "hidden"
-                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
-            }`}
+            className={`px-4 py-2 rounded-md font-medium transition duration-150 ${page >= maxPage
+              ? "hidden"
+              : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm"
+              }`}
           >
             Next Page &rarr;
           </button>

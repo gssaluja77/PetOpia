@@ -1008,7 +1008,7 @@ const PetInfo = () => {
         error={
           <div className="text-center py-10">
             <h1 className="text-2xl font-bold text-red-600 mb-4">
-              Pet not found
+              Pet not found!
             </h1>
             <div className="flex justify-center">
               <Link to={`/account/my-pets`}>

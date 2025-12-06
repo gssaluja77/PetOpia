@@ -38,7 +38,7 @@ function ViewPost() {
         console.log(error);
         setViewPost(undefined);
         setLoading(false);
-        setDisplayedError("Post not found");
+        setDisplayedError("Post not found!");
       }
     };
     getPostsAndComments();
@@ -369,7 +369,7 @@ function ViewPost() {
         error={
           <div className="text-center py-10">
             <h1 className="text-2xl font-bold text-red-600 mb-4">
-              Post not found
+              Post not found!
             </h1>
             <div className="flex justify-center">
               <Link to={`/account/community-posts`}>
