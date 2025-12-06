@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
 
 const LikeUnlikeComment = (props) => {
   const { userId } = useAuth();

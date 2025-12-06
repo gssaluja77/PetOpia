@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
 
 const LikeUnlikePost = (props) => {
   const { userId } = useAuth();

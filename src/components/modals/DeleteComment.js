@@ -40,6 +40,7 @@ function DeleteComment(props) {
       .delete(`/view-post/${props.postId}/${props.commentId}`)
       .then(() => {
         setAxiosLoading(false);
+        if (props.onSuccess) props.onSuccess();
         handleCloseModal();
       })
       .catch((error) => {

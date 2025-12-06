@@ -17,7 +17,9 @@ import Navigation from "./components/Navigation";
 import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
 import ErrorHandler from "./components/ErrorHandler";
 import { isSessionExpired } from "./utils/session";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./utils/hooks/useAuth";
+import { RefreshProvider } from "./context/RefreshContext";
 
 function AppContent() {
   const { userId, loginTime, lastActivity, logout, updateActivity } = useAuth();
@@ -68,13 +70,11 @@ function AppContent() {
                 <ErrorHandler
                   error={
                     <div><h1>
-                      <br />
-                      <br />
                       Error 404: Page Not Found!
                     </h1>
                       <Link to={`/account/my-pets`}>
                         <button className="post-link my-posts">
-                          Back to Pet-Center
+                          Back to Pet Center
                         </button>
                       </Link>
                     </div>
@@ -102,7 +102,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <RefreshProvider>
+        <AppContent />
+      </RefreshProvider>
     </AuthProvider>
   );
 }

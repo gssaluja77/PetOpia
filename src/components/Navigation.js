@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import SignOutButton from "./auth/SignOut";
 import logo from "../img/petopia-logo.svg";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../utils/hooks/useAuth";
 
 const Navigation = ({ userId }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -9,7 +9,8 @@ import NewPost from "../modals/NewPost";
 import LikeUnlikePost from "./LikeUnlikePost";
 import LikeUnlikeComment from "./LikeUnlikeComment";
 import ErrorHandler from "../ErrorHandler";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
+import { useRefresh } from "../../utils/hooks/useRefresh";
 
 function ViewPost() {
   const { userId, userEmail, username } = useAuth();
@@ -25,6 +26,7 @@ function ViewPost() {
   const { postId } = useParams();
   const [commentValue, setCommentValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { refreshTriggers, triggerRefresh } = useRefresh();
   let comment;
 
   useEffect(() => {
@@ -43,7 +45,7 @@ function ViewPost() {
     };
     getPostsAndComments();
     // eslint-disable-next-line
-  }, [postId]);
+  }, [postId, refreshTriggers.communityPosts]);
 
 
 
@@ -203,6 +205,7 @@ function ViewPost() {
             <EditPost
               handleEditModalClose={handleEditModalClose}
               isOpen={editModalOpen}
+              onSuccess={() => triggerRefresh('communityPosts')}
               oldDetails={{
                 postId: postId,
                 postImage: viewPost.postImage,
@@ -322,6 +325,7 @@ function ViewPost() {
       <DeleteComment
         handleCommentDeleteModalClose={handleCommentDeleteModalClose}
         isOpen={true}
+        onSuccess={() => triggerRefresh('communityPosts')}
         postId={postId}
         commentId={commentToDelete}
       />
@@ -359,6 +363,7 @@ function ViewPost() {
           <NewPost
             handleNewModalClose={handleNewModalClose}
             isOpen={newModalOpen}
+            onSuccess={() => triggerRefresh('communityPosts')}
           />
         )}
       </div>

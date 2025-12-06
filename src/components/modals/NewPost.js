@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
 import Modal from "react-modal";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
 
 Modal.setAppElement("#root");
 
@@ -104,6 +104,7 @@ function NewPost(props) {
               setPostDescription("");
               handleCloseModal();
               setAxiosLoading(false);
+              if (props.onSuccess) props.onSuccess();
             })
             .catch((error) => {
               console.log(error);
@@ -131,6 +132,7 @@ function NewPost(props) {
           setPostDescription("");
           handleCloseModal();
           setAxiosLoading(false);
+          if (props.onSuccess) props.onSuccess();
         })
         .catch((error) => {
           console.log(error);

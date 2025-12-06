@@ -5,7 +5,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Medications from "./Medications";
 import Appointments from "./Appointments";
 import Prescriptions from "./Prescriptions";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
+import { useRefresh } from "../../utils/hooks/useRefresh";
 import ErrorHandler from "../ErrorHandler";
 
 Modal.setAppElement("#root");
@@ -19,6 +20,7 @@ const PetCenterHome = () => {
   const [isOpenEmptyError, setIsOpenEmptyError] = useState(false);
   const [petImage, setPetImage] = useState("");
   const [axiosLoading, setAxiosLoading] = useState(null);
+  const { refreshTriggers, triggerRefresh } = useRefresh();
 
   useEffect(() => {
     async function getPets() {
@@ -32,7 +34,7 @@ const PetCenterHome = () => {
       }
     }
     getPets();
-  }, [userId]);
+  }, [userId, refreshTriggers.pets]);
 
   function showPet() {
     setIsOpenPet(!isOpenPet);
@@ -88,6 +90,7 @@ const PetCenterHome = () => {
           setAxiosLoading(false);
           setIsOpenPet(!isOpenPet);
           setLoading(false);
+          triggerRefresh('pets');
         } catch (e) {
           console.log(e);
           setAxiosLoading(false);

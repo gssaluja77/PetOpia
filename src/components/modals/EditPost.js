@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "../../utils/axios";
 import Modal from "react-modal";
 import ErrorHandler from "../ErrorHandler";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
 
 Modal.setAppElement("#root");
 
@@ -114,6 +114,7 @@ function EditPost(props) {
               setPostDescription("");
               handleCloseModal();
               setAxiosLoading(false);
+              if (props.onSuccess) props.onSuccess();
             })
             .catch((error) => {
               setAxiosLoading(false);
@@ -140,6 +141,7 @@ function EditPost(props) {
           setPostDescription("");
           handleCloseModal();
           setAxiosLoading(false);
+          if (props.onSuccess) props.onSuccess();
         })
         .catch((error) => {
           setAxiosLoading(false);

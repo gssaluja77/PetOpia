@@ -6,7 +6,8 @@ import LikeUnlikePost from "./LikeUnlikePost";
 import SearchPosts from "./SearchPosts";
 import ErrorHandler from "../ErrorHandler";
 import { useDebounce } from "../../utils/hooks/useDebounce";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../utils/hooks/useAuth";
+import { useRefresh } from "../../utils/hooks/useRefresh";
 
 function CommunityPosts() {
   const { userId } = useAuth();
@@ -21,6 +22,7 @@ function CommunityPosts() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedData, setSearchedData] = useState([]);
   const debouncedSearchQuery = useDebounce(searchQuery);
+  const { refreshTriggers, triggerRefresh } = useRefresh();
 
   useEffect(() => {
     const getPostsData = async () => {
@@ -52,7 +54,7 @@ function CommunityPosts() {
       }
     };
     getPostsData();
-  }, [currentPage, debouncedSearchQuery, userId]);
+  }, [currentPage, debouncedSearchQuery, userId, refreshTriggers.communityPosts]);
 
   const handleNewModalOpen = () => {
     setNewModalOpen(true);
@@ -262,6 +264,7 @@ function CommunityPosts() {
         <NewPost
           handleNewModalClose={handleNewModalClose}
           isOpen={newModalOpen}
+          onSuccess={() => triggerRefresh('communityPosts')}
         />
       )}
     </div>
