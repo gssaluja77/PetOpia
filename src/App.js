@@ -69,14 +69,26 @@ function AppContent() {
               element={
                 <ErrorHandler
                   error={
-                    <div><h1>
-                      Error 404: Page Not Found!
-                    </h1>
-                      <Link to={`/account/my-pets`}>
-                        <button className="post-link my-posts">
-                          Back to Pet Center
-                        </button>
-                      </Link>
+                    <div className="text-center py-10">
+                      <h1 className="text-2xl font-bold text-red-600 mb-4">
+                        Error 404: Page Not Found!
+                      </h1>
+                      <div className="flex flex-col gap-4">
+                        <div className="flex justify-center">
+                          <Link to={`/account/my-pets`}>
+                            <button className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                              &larr; Back to Pet Center
+                            </button>
+                          </Link>
+                        </div>
+                        <div className="flex justify-center">
+                          <Link to={`/account/community-posts`}>
+                            <button className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                              &larr; Back to Community Feed
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   }
                 />

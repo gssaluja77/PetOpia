@@ -255,7 +255,11 @@ function ViewPost() {
             </div>
           </form>
 
-          {isError && <ErrorHandler error={displayedError} />}
+          {isError && (
+            <div className="text-red-600 text-sm mt-2 text-center">
+              {displayedError}
+            </div>
+          )}
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             {comment && comment.length ? (

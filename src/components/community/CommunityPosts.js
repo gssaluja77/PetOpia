@@ -186,7 +186,20 @@ function CommunityPosts() {
   }
 
   if (!allPostsData || !myPostsData) {
-    return <ErrorHandler error="ERROR 500: Internal Server Error!" />;
+    return (
+      <ErrorHandler
+        error={
+          <div className="text-center py-10">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              ERROR 500: Internal Server Error!
+            </h1>
+            <p className="text-gray-500 mt-2">
+              Please try again later.
+            </p>
+          </div>
+        }
+      />
+    );
   }
 
   return (
