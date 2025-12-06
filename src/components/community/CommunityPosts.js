@@ -17,7 +17,6 @@ function CommunityPosts() {
   const [allPostsData, setAllPostsData] = useState([]);
   const [myPostsData, setMyPostsData] = useState([]);
   const [newModalOpen, setNewModalOpen] = useState(false);
-  const [count, setCount] = useState(0);
   const [postType, setPostType] = useState("allPosts");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedData, setSearchedData] = useState([]);
@@ -53,7 +52,7 @@ function CommunityPosts() {
       }
     };
     getPostsData();
-  }, [currentPage, count, debouncedSearchQuery, userId]);
+  }, [currentPage, debouncedSearchQuery, userId]);
 
   const handleNewModalOpen = () => {
     setNewModalOpen(true);
@@ -61,10 +60,6 @@ function CommunityPosts() {
 
   const handleNewModalClose = () => {
     setNewModalOpen(false);
-  };
-
-  const handleChange = () => {
-    setCount(count + 1);
   };
 
   const buildCard = (post) => {
@@ -107,7 +102,6 @@ function CommunityPosts() {
             </div>
             <LikeUnlikePost
               className="like-button"
-              countFunction={handleChange}
               post={post}
             />
           </div>
@@ -268,7 +262,6 @@ function CommunityPosts() {
         <NewPost
           handleNewModalClose={handleNewModalClose}
           isOpen={newModalOpen}
-          handleChange={handleChange}
         />
       )}
     </div>

@@ -32,7 +32,6 @@ function DeletePost(props) {
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    props.handleChange();
     props.handlePostDeleteModalClose();
   };
 

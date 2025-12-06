@@ -15,7 +15,6 @@ function ViewPost() {
   const { userId, userEmail, username } = useAuth();
   const [viewPost, setViewPost] = useState(undefined);
   const [loading, setLoading] = useState(true);
-  const [count, setCount] = useState(0);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
@@ -44,11 +43,9 @@ function ViewPost() {
     };
     getPostsAndComments();
     // eslint-disable-next-line
-  }, [postId, count]);
+  }, [postId]);
 
-  const handleChange = () => {
-    setCount(count + 1);
-  };
+
 
   const handleCommentChange = (event) => {
     const value = event.target.value;
@@ -147,12 +144,12 @@ function ViewPost() {
               <span>
                 {viewPost &&
                   viewPost.firstName +
-                    " " +
-                    viewPost.lastName +
-                    " " +
-                    "(" +
-                    viewPost.username +
-                    ")"}
+                  " " +
+                  viewPost.lastName +
+                  " " +
+                  "(" +
+                  viewPost.username +
+                  ")"}
               </span>
             </div>
 
@@ -176,7 +173,6 @@ function ViewPost() {
               <span className="text-sm text-gray-600">Found it useful?</span>
               <LikeUnlikePost
                 className="like-button"
-                countFunction={handleChange}
                 post={viewPost}
               />
               <span className="text-sm text-gray-500">
@@ -207,7 +203,6 @@ function ViewPost() {
             <EditPost
               handleEditModalClose={handleEditModalClose}
               isOpen={editModalOpen}
-              handleChange={handleChange}
               oldDetails={{
                 postId: postId,
                 postImage: viewPost.postImage,
@@ -220,7 +215,6 @@ function ViewPost() {
             <DeletePost
               handlePostDeleteModalClose={handlePostDeleteModalClose}
               isOpen={deletePostModalOpen}
-              handleChange={handleChange}
               postId={postId}
             />
           )}
@@ -248,11 +242,10 @@ function ViewPost() {
                 id="post-comment"
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
-                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${
-                  isSubmitting || !commentValue.trim()
-                    ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                    : "bg-indigo-600 text-white hover:bg-indigo-700"
-                }`}
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
+                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                  : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>
@@ -294,7 +287,6 @@ function ViewPost() {
             <p className="text-gray-700 mb-2">{com.comment}</p>
             <div className="flex items-center space-x-2">
               <LikeUnlikeComment
-                countFunction={handleChange}
                 commentObj={com}
               />
               <span className="text-xs text-gray-500">
@@ -330,7 +322,6 @@ function ViewPost() {
       <DeleteComment
         handleCommentDeleteModalClose={handleCommentDeleteModalClose}
         isOpen={true}
-        handleChange={handleChange}
         postId={postId}
         commentId={commentToDelete}
       />
@@ -348,8 +339,8 @@ function ViewPost() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between mb-6">
           <Link to={`/account/community-posts`}>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition duration-150 font-medium">
-              Back to Community
+            <button className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+              &larr; Back to Community Feed
             </button>
           </Link>
           <button
@@ -368,7 +359,6 @@ function ViewPost() {
           <NewPost
             handleNewModalClose={handleNewModalClose}
             isOpen={newModalOpen}
-            handleChange={handleChange}
           />
         )}
       </div>
@@ -377,15 +367,17 @@ function ViewPost() {
     return (
       <ErrorHandler
         error={
-          <div className="text-center py10">
+          <div className="text-center py-10">
             <h1 className="text-2xl font-bold text-red-600 mb-4">
-              {displayedError}
+              Post not found
             </h1>
-            <Link to={`/account/community-posts`}>
-              <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 font-medium">
-                Back to Community
-              </button>
-            </Link>
+            <div className="flex justify-center">
+              <Link to={`/account/community-posts`}>
+                <button className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                  &larr; Back to Community Feed
+                </button>
+              </Link>
+            </div>
           </div>
         }
       />

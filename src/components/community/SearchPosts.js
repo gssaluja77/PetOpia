@@ -1,5 +1,5 @@
 const SearchPosts = ({ searchValue }) => {
-  const handleChange = (event) => {
+  const handleQueryChange = (event) => {
     searchValue(event.target.value);
   };
 
@@ -32,7 +32,7 @@ const SearchPosts = ({ searchValue }) => {
           type="text"
           id="searchBar"
           name="searchTerm"
-          onChange={handleChange}
+          onChange={handleQueryChange}
         />
       </div>
     </form>

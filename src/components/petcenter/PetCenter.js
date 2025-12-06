@@ -2,11 +2,11 @@ import axios from "../../utils/axios";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ErrorHandler from "../ErrorHandler";
 import Medications from "./Medications";
 import Appointments from "./Appointments";
 import Prescriptions from "./Prescriptions";
 import { useAuth } from "../../context/AuthContext";
+import ErrorHandler from "../ErrorHandler";
 
 Modal.setAppElement("#root");
 
@@ -19,7 +19,6 @@ const PetCenterHome = () => {
   const [isOpenEmptyError, setIsOpenEmptyError] = useState(false);
   const [petImage, setPetImage] = useState("");
   const [axiosLoading, setAxiosLoading] = useState(null);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function getPets() {
@@ -33,7 +32,7 @@ const PetCenterHome = () => {
       }
     }
     getPets();
-  }, [count]);
+  }, [userId]);
 
   function showPet() {
     setIsOpenPet(!isOpenPet);
@@ -85,7 +84,6 @@ const PetCenterHome = () => {
             petBreed: petBreed,
           });
 
-          setCount(count + 1);
           setPetImage(null);
           setAxiosLoading(false);
           setIsOpenPet(!isOpenPet);
@@ -411,7 +409,7 @@ const PetInfo = () => {
       }
     }
     getPets();
-  }, [petId]);
+  }, [petId, userId]);
 
   function showEditPet() {
     setIsOpenEditPet(!isOpenEditPet);
@@ -1005,7 +1003,24 @@ const PetInfo = () => {
       </div>
     );
   } else if (errorMsg) {
-    return <ErrorHandler error={errorMsg} />;
+    return (
+      <ErrorHandler
+        error={
+          <div className="text-center py-10">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">
+              Pet not found
+            </h1>
+            <div className="flex justify-center">
+              <Link to={`/account/my-pets`}>
+                <button className="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                  &larr; Back to Pet Center
+                </button>
+              </Link>
+            </div>
+          </div>
+        }
+      />
+    );
   } else {
     return null;
   }
