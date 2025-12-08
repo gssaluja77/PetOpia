@@ -39,7 +39,7 @@ function DeletePost(props) {
     event.preventDefault();
     setAxiosLoading(true);
     axios
-      .delete(`/community-posts/${props.postId}`)
+      .delete(`/account/community-posts/${props.postId}`)
       .then(() => {
         setAxiosLoading(false);
         navigate(`/account/community-posts`);

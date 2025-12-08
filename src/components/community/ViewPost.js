@@ -30,9 +30,9 @@ function ViewPost() {
   let comment;
 
   useEffect(() => {
-    const getPostsAndComments = async () => {
+    const getPostAndComments = async () => {
       try {
-        const response = await axios.get(`/community-posts/${postId}`);
+        const response = await axios.get(`/account/community-posts/${postId}`);
         setViewPost(response.data);
         setComments(response.data.postComments);
         setLoading(false);
@@ -43,11 +43,8 @@ function ViewPost() {
         setDisplayedError("Post not found!");
       }
     };
-    getPostsAndComments();
-    // eslint-disable-next-line
+    getPostAndComments();
   }, [postId, refreshTriggers.communityPosts]);
-
-
 
   const handleCommentChange = (event) => {
     const value = event.target.value;
@@ -146,12 +143,12 @@ function ViewPost() {
               <span>
                 {viewPost &&
                   viewPost.firstName +
-                  " " +
-                  viewPost.lastName +
-                  " " +
-                  "(" +
-                  viewPost.username +
-                  ")"}
+                    " " +
+                    viewPost.lastName +
+                    " " +
+                    "(" +
+                    viewPost.username +
+                    ")"}
               </span>
             </div>
 
@@ -173,10 +170,7 @@ function ViewPost() {
 
             <div className="flex items-center space-x-2 pt-2 border-t border-gray-100">
               <span className="text-sm text-gray-600">Found it useful?</span>
-              <LikeUnlikePost
-                className="like-button"
-                post={viewPost}
-              />
+              <LikeUnlikePost className="like-button" post={viewPost} />
               <span className="text-sm text-gray-500">
                 {viewPost.postLikes.length !== 0 &&
                   (viewPost.postLikes.length === 1 ? "like" : "likes")}
@@ -205,7 +199,7 @@ function ViewPost() {
             <EditPost
               handleEditModalClose={handleEditModalClose}
               isOpen={editModalOpen}
-              onSuccess={() => triggerRefresh('communityPosts')}
+              onSuccess={() => triggerRefresh("communityPosts")}
               oldDetails={{
                 postId: postId,
                 postImage: viewPost.postImage,
@@ -245,10 +239,11 @@ function ViewPost() {
                 id="post-comment"
                 type="submit"
                 disabled={isSubmitting || !commentValue.trim()}
-                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${isSubmitting || !commentValue.trim()
-                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
-                  }`}
+                className={`px-6 py-2 rounded-md transition duration-150 text-sm font-medium whitespace-nowrap ${
+                  isSubmitting || !commentValue.trim()
+                    ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                }`}
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>
@@ -293,9 +288,7 @@ function ViewPost() {
             </div>
             <p className="text-gray-700 mb-2">{com.comment}</p>
             <div className="flex items-center space-x-2">
-              <LikeUnlikeComment
-                commentObj={com}
-              />
+              <LikeUnlikeComment commentObj={com} />
               <span className="text-xs text-gray-500">
                 {com.commentLikes.length !== 0 &&
                   (com.commentLikes.length === 1 ? "like" : "likes")}
@@ -329,7 +322,7 @@ function ViewPost() {
       <DeleteComment
         handleCommentDeleteModalClose={handleCommentDeleteModalClose}
         isOpen={true}
-        onSuccess={() => triggerRefresh('communityPosts')}
+        onSuccess={() => triggerRefresh("communityPosts")}
         postId={postId}
         commentId={commentToDelete}
       />
@@ -367,7 +360,7 @@ function ViewPost() {
           <NewPost
             handleNewModalClose={handleNewModalClose}
             isOpen={newModalOpen}
-            onSuccess={() => triggerRefresh('communityPosts')}
+            onSuccess={() => triggerRefresh("communityPosts")}
           />
         )}
       </div>

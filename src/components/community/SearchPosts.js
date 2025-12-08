@@ -1,13 +1,10 @@
-const SearchPosts = ({ searchValue }) => {
-  const handleQueryChange = (event) => {
-    searchValue(event.target.value);
-  };
-
+const SearchPosts = ({ searchValue, onSearchChange }) => {
   return (
     <form
       method="POST"
       name="formName"
       className="w-full max-w-md mx-auto mb-8"
+      onSubmit={(e) => e.preventDefault()}
     >
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -32,7 +29,8 @@ const SearchPosts = ({ searchValue }) => {
           type="text"
           id="searchBar"
           name="searchTerm"
-          onChange={handleQueryChange}
+          value={searchValue}
+          onChange={(e) => onSearchChange(e.target.value)}
         />
       </div>
     </form>

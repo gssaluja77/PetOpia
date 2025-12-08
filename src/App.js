@@ -40,30 +40,28 @@ function AppContent() {
   };
 
   return (
-    <div className="App-container flex flex-col min-h-screen" onClick={handleActivity}>
+    <div
+      className="App-container flex flex-col min-h-screen"
+      onClick={handleActivity}
+    >
       <Router>
         <div className="flex-grow">
           <Navigation userId={userId} />
           <Routes>
             <Route path="/adoptpet" element={<AdoptPet />} />
             <Route path="/account" element={<PrivateRoute />}>
-              <Route index element={<Navigate to="/account/my-pets" replace />} />
+              <Route
+                index
+                element={<Navigate to="/account/my-pets" replace />}
+              />
               <Route path="my-pets" element={<PetCenterHome />} />
               <Route path="my-pet-info/:petId" element={<PetInfo />} />
               <Route path="community-posts" element={<CommunityPosts />} />
-              <Route
-                path={"community-posts/:postId"}
-                element={<ViewPost />}
-              />
+              <Route path="my-posts" element={<CommunityPosts />} />
+              <Route path={"community-posts/:postId"} element={<ViewPost />} />
             </Route>
-            <Route
-              path="/"
-              element={<SignIn />}
-            />
-            <Route
-              path="/signup"
-              element={<SignUp />}
-            />
+            <Route path="/" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route
               path="*"
               element={
@@ -99,9 +97,7 @@ function AppContent() {
       </Router>
       <footer className="text-center text-gray-500 w-full py-2">
         <div className="text-center">
-          <span className="text-base font-medium">
-            PetOpia{" "}
-          </span>
+          <span className="text-base font-medium">PetOpia </span>
           <span className="font-light text-base">
             © 2023 All Rights Reserved.{" "}
           </span>

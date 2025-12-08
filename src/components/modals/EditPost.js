@@ -101,7 +101,7 @@ function EditPost(props) {
         })
         .then((response) => {
           axios
-            .put(`/community-posts/${props.oldDetails.postId}`, {
+            .put(`/account/community-posts/${props.oldDetails.postId}`, {
               userThatPosted: userId,
               postImage: response.data.url,
               postTitle: postTitle,
@@ -128,7 +128,7 @@ function EditPost(props) {
     } else {
       // No new image - either keep old or remove based on checkbox status
       axios
-        .put(`/community-posts/${props.oldDetails.postId}`, {
+        .put(`/account/community-posts/${props.oldDetails.postId}`, {
           userThatPosted: userId,
           postImage: checked ? "" : props.oldDetails.postImage,
           postTitle: postTitle,

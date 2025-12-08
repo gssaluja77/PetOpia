@@ -89,7 +89,7 @@ function NewPost(props) {
           setPostImage(response.data.url);
 
           axios
-            .post("/community-posts/", {
+            .post("/account/community-posts/", {
               userThatPosted: userId,
               username: username,
               firstName: firstName,
@@ -117,7 +117,7 @@ function NewPost(props) {
         });
     } else {
       axios
-        .post("/community-posts/", {
+        .post("/account/community-posts/", {
           userThatPosted: userId,
           username: username,
           firstName: firstName,
