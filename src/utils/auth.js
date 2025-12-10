@@ -23,7 +23,10 @@ export const signup = async (firstName, lastName, username, email, password) => 
         },
       };
     }
-    return { success: true, user: response.data };
+    return {
+      success: false,
+      message: "Server returned unexpected response format",
+    };
   } catch (error) {
     return {
       success: false,
@@ -49,7 +52,10 @@ export const login = async (email, password) => {
         },
       };
     }
-    return { success: true, user: response.data };
+    return {
+      success: false,
+      message: "Server returned unexpected response format",
+    };
   } catch (error) {
     return {
       success: false,

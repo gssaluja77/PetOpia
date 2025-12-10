@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useCallback } from "react";
 import { useLocalStorage } from "../utils/hooks/useLocalStorage";
 
 export const AuthContext = createContext();
@@ -11,8 +11,11 @@ export const AuthProvider = ({ children }) => {
     const [username, setUsername] = useLocalStorage("username", null);
     const [loginTime, setLoginTime] = useLocalStorage("loginTime", null);
     const [lastActivity, setLastActivity] = useLocalStorage("lastActivity", null);
+    const [sessionId, setSessionId] = useLocalStorage("sessionId", null);
+
 
     const login = (userData) => {
+        setSessionId(userData.sessionId);
         setFirstName(userData.firstName);
         setLastName(userData.lastName);
         setUserEmail(userData.email || userData.userEmail);
@@ -22,7 +25,8 @@ export const AuthProvider = ({ children }) => {
         setLastActivity(Date.now());
     };
 
-    const logout = () => {
+    const logout = useCallback(() => {
+        setSessionId(null);
         setFirstName(null);
         setLastName(null);
         setUserEmail(null);
@@ -30,7 +34,19 @@ export const AuthProvider = ({ children }) => {
         setUsername(null);
         setLoginTime(null);
         setLastActivity(null);
-    };
+    }, [setFirstName, setLastName, setUserEmail, setUserId, setUsername, setLoginTime, setLastActivity, setSessionId]);
+
+    useEffect(() => {
+        const handleStorageChange = (event) => {
+            if (event.key === "userId" && event.newValue === null) {
+                logout();
+            }
+        };
+        window.addEventListener("storage", handleStorageChange);
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        }
+    }, [logout]);
 
     const updateActivity = () => {
         setLastActivity(Date.now());
@@ -57,6 +73,7 @@ export const AuthProvider = ({ children }) => {
     } : null;
 
     const value = {
+        sessionId,
         firstName,
         lastName,
         userEmail,
