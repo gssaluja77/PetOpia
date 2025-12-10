@@ -63,3 +63,17 @@ export const login = async (email, password) => {
     };
   }
 };
+
+export const logout = async () => {
+  try {
+    await axios.post("/user/logout");
+    return {
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.error || "Logout failed",
+    };
+  }
+};
