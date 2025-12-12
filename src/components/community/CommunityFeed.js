@@ -1,4 +1,4 @@
-// CommunityPosts.js
+// CommunityFeed.js
 import { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useDebounce } from "../../utils/hooks/useDebounce";
 import { useAuth } from "../../utils/hooks/useAuth";
 import { useRefresh } from "../../utils/hooks/useRefresh";
 
-function CommunityPosts() {
+function CommunityFeed() {
   const { userId } = useAuth();
   const [firstPage, setFirstPage] = useState(false);
   const [lastPage, setLastPage] = useState(false);
@@ -315,4 +315,4 @@ function CommunityPosts() {
   );
 }
 
-export default CommunityPosts;
+export default CommunityFeed;
