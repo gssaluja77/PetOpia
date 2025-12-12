@@ -6,7 +6,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import CommunityPosts from "./components/community/CommunityPosts";
+import CommunityFeed from "./components/community/CommunityFeed";
 import ViewPost from "./components/community/ViewPost";
 import "./App.css";
 import AdoptPet from "./components/AdoptPet";
@@ -14,12 +14,13 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
-import { PetCenterHome, PetInfo } from "./components/petcenter/PetCenter";
+import PetCenter from "./components/petcenter/PetCenter";
 import ErrorHandler from "./components/ErrorHandler";
 import { isSessionExpired } from "./utils/session";
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./utils/hooks/useAuth";
 import { RefreshProvider } from "./context/RefreshContext";
+import PetInfo from "./components/petcenter/PetInfo";
 
 function AppContent() {
   const { userId, loginTime, lastActivity, logout, updateActivity } = useAuth();
@@ -54,10 +55,10 @@ function AppContent() {
                 index
                 element={<Navigate to="/account/my-pets" replace />}
               />
-              <Route path="my-pets" element={<PetCenterHome />} />
+              <Route path="my-pets" element={<PetCenter />} />
               <Route path="my-pet-info/:petId" element={<PetInfo />} />
-              <Route path="community-posts" element={<CommunityPosts />} />
-              <Route path="my-posts" element={<CommunityPosts />} />
+              <Route path="community-posts" element={<CommunityFeed />} />
+              <Route path="my-posts" element={<CommunityFeed />} />
               <Route path={"community-posts/:postId"} element={<ViewPost />} />
             </Route>
             <Route path="/" element={<SignIn />} />
