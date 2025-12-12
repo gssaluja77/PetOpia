@@ -77,67 +77,40 @@ function NewPost(props) {
     setAxiosLoading(true);
     setIsError(false);
 
-    if (postImage) {
-      const formData = new FormData();
-      formData.append("image", postImage);
+    try {
+      let imageUrl = null;
 
-      axios
-        .post("/upload", formData, {
+      if (postImage) {
+        const formData = new FormData();
+        formData.append("image", postImage);
+
+        const uploadResponse = await axios.post("/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => {
-          setPostImage(response.data.url);
+        });
 
-          axios
-            .post("/account/community-posts/", {
-              userThatPosted: userId,
-              username: username,
-              firstName: firstName,
-              lastName: lastName,
-              postImage: response.data.url,
-              postTitle: postTitle,
-              postDescription: postDescription,
-            })
-            .then(() => {
-              setPostImage(null);
-              setPostTitle("");
-              setPostDescription("");
-              handleCloseModal();
-              setAxiosLoading(false);
-              if (props.onSuccess) props.onSuccess();
-            })
-            .catch((error) => {
-              console.log(error);
-              setAxiosLoading(false);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          setAxiosLoading(false);
-        });
-    } else {
-      axios
-        .post("/account/community-posts/", {
-          userThatPosted: userId,
-          username: username,
-          firstName: firstName,
-          lastName: lastName,
-          postImage: null,
-          postTitle: postTitle,
-          postDescription: postDescription,
-        })
-        .then(() => {
-          setPostImage(null);
-          setPostTitle("");
-          setPostDescription("");
-          handleCloseModal();
-          setAxiosLoading(false);
-          if (props.onSuccess) props.onSuccess();
-        })
-        .catch((error) => {
-          console.log(error);
-          setAxiosLoading(false);
-        });
+        imageUrl = uploadResponse.data.url;
+        setPostImage(imageUrl);
+      }
+
+      await axios.post("/account/community-posts/", {
+        userThatPosted: userId,
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        postImage: imageUrl,
+        postTitle: postTitle,
+        postDescription: postDescription,
+      });
+
+      setPostImage(null);
+      setPostTitle("");
+      setPostDescription("");
+      handleCloseModal();
+      setAxiosLoading(false);
+      if (props.onSuccess) props.onSuccess();
+    } catch (error) {
+      console.log(error);
+      setAxiosLoading(false);
     }
   };
 

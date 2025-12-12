@@ -90,63 +90,43 @@ function EditPost(props) {
     setIsError(false);
     setIsDescError(false);
 
-    // Check if user selected a new image file to upload
-    if (postImage && typeof postImage === 'object' && postImage instanceof File) {
-      const formData = new FormData();
-      formData.append("image", postImage);
+    try {
+      let imageUrl = null;
 
-      axios
-        .post("/upload", formData, {
+      if (postImage && typeof postImage === 'object' && postImage instanceof File) {
+        const formData = new FormData();
+        formData.append("image", postImage);
+
+        const uploadResponse = await axios.post("/upload", formData, {
           headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => {
-          axios
-            .put(`/account/community-posts/${props.oldDetails.postId}`, {
-              userThatPosted: userId,
-              postImage: response.data.url,
-              postTitle: postTitle,
-              postDescription: postDescription,
-            })
-            .then(() => {
-              setPostImage(null);
-              setPostTitle("");
-              setPostDescription("");
-              handleCloseModal();
-              setAxiosLoading(false);
-              if (props.onSuccess) props.onSuccess();
-            })
-            .catch((error) => {
-              setAxiosLoading(false);
-              setServerError(true);
-              setDisplayedError(error.response.data);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          setAxiosLoading(false);
         });
-    } else {
-      // No new image - either keep old or remove based on checkbox status
-      axios
-        .put(`/account/community-posts/${props.oldDetails.postId}`, {
-          userThatPosted: userId,
-          postImage: checked ? "" : props.oldDetails.postImage,
-          postTitle: postTitle,
-          postDescription: postDescription,
-        })
-        .then(() => {
-          setPostImage(null);
-          setPostTitle("");
-          setPostDescription("");
-          handleCloseModal();
-          setAxiosLoading(false);
-          if (props.onSuccess) props.onSuccess();
-        })
-        .catch((error) => {
-          setAxiosLoading(false);
-          setServerError(true);
-          setDisplayedError(error.response.data);
-        });
+
+        imageUrl = uploadResponse.data.url;
+      } else {
+        imageUrl = checked ? null : props.oldDetails.postImage;
+      }
+
+      await axios.put(`/account/community-posts/${props.oldDetails.postId}`, {
+        userThatPosted: userId,
+        postImage: imageUrl,
+        postTitle: postTitle,
+        postDescription: postDescription,
+      });
+
+      setPostImage(null);
+      setPostTitle("");
+      setPostDescription("");
+      handleCloseModal();
+      setAxiosLoading(false);
+      if (props.onSuccess) props.onSuccess();
+    } catch (error) {
+      setAxiosLoading(false);
+      if (error.response?.data) {
+        setServerError(true);
+        setDisplayedError(error.response.data);
+      } else {
+        console.log(error);
+      }
     }
   };
 
