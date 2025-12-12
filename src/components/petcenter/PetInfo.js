@@ -337,15 +337,19 @@ const PetInfo = () => {
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
                     <div className="p-6 sm:p-8">
                         <div className="flex flex-col md:flex-row gap-8">
-                            {getMyPets.petImage && (
-                                <div className="w-full md:w-1/3">
+                            <div className="w-full md:w-1/3">
+                                {getMyPets.petImage ? (
                                     <img
                                         src={getMyPets.petImage}
                                         alt={getMyPets.petName}
                                         className="w-full h-auto rounded-lg shadow-md object-cover"
                                     />
-                                </div>
-                            )}
+                                ) : (
+                                    <div className="w-full aspect-square bg-gray-200 flex items-center justify-center rounded-lg shadow-md">
+                                        <span className="text-gray-400 text-5xl">🐾</span>
+                                    </div>
+                                )}
+                            </div>
                             <div className="w-full md:w-2/3">
                                 <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
                                     {getMyPets.petName}
