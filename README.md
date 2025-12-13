@@ -1,4 +1,4 @@
-# 🐾 PetOpia Client
+# 🐾 PetOpia
 
 > A beautiful, modern web application for managing your pet's health and connecting with the pet community
 
@@ -71,13 +71,11 @@ Before running this project locally, ensure you have:
    git clone https://github.com/your-username/petopia.git
    cd petopia-client
    ```
-
 2. **Install dependencies**
 
    ```bash
    npm install
    ```
-
 3. **Create environment file**
 
    ```bash
