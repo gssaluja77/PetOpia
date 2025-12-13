@@ -36,7 +36,7 @@ function EditPost(props) {
   );
   const [isOpen, setIsOpen] = useState(props.isOpen);
   const [axiosLoading, setAxiosLoading] = useState(null);
-  const [checked, setChecked] = useState(false);
+  const [removeImage, setRemoveImage] = useState(false);
   const [isError, setIsError] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [displayedError, setDisplayedError] = useState(null);
@@ -44,14 +44,15 @@ function EditPost(props) {
   const [displayedErrorForTitle, setDisplayedErrorForTitle] = useState(null);
   const [displayedErrorFordesc, setDisplayedErrorForDesc] = useState(null);
 
-  const handleCheckBox = () => {
-    setChecked(!checked);
+  const handleRemoveImage = () => {
+    setRemoveImage(true);
+    setPostImage(null);
   };
 
   const handleImageChange = (event) => {
     if (event.target.files[0]) {
       setPostImage(event.target.files[0]);
-      setChecked(false);
+      setRemoveImage(false);
     }
   };
 
@@ -93,7 +94,9 @@ function EditPost(props) {
     try {
       let imageUrl = null;
 
-      if (postImage && typeof postImage === 'object' && postImage instanceof File) {
+      if (removeImage) {
+        imageUrl = null;
+      } else if (postImage && typeof postImage === 'object' && postImage instanceof File) {
         const formData = new FormData();
         formData.append("image", postImage);
 
@@ -103,7 +106,7 @@ function EditPost(props) {
 
         imageUrl = uploadResponse.data.url;
       } else {
-        imageUrl = checked ? null : props.oldDetails.postImage;
+        imageUrl = props.oldDetails.postImage;
       }
 
       await axios.put(`/account/community-posts/${props.oldDetails.postId}`, {
@@ -165,40 +168,59 @@ function EditPost(props) {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Edit Post</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {props.oldDetails.postImage && !removeImage && !postImage && (
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Current Picture
+              </label>
+              <div className="relative inline-block">
+                <img
+                  src={props.oldDetails.postImage}
+                  alt="Current post"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md"
+                />
+                <button
+                  type="button"
+                  onClick={handleRemoveImage}
+                  className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-md"
+                  title="Remove picture"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
+
           <div>
             <label
               htmlFor="post-image"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Change Picture
+              {removeImage
+                ? "Picture will be removed"
+                : postImage
+                  ? "New Picture Selected"
+                  : "Upload New Picture"}
             </label>
-            <input
-              id="post-image"
-              className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              disabled={checked}
-            />
-          </div>
-
-          {props.oldDetails.postImage && (
-            <div className="flex items-center">
+            {!removeImage && (
               <input
-                id="remove-pic"
-                type="checkbox"
-                checked={checked}
-                onChange={handleCheckBox}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                id="post-image"
+                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
               />
-              <label
-                htmlFor="remove-pic"
-                className="ml-2 block text-sm text-gray-900"
+            )}
+            {removeImage && (
+              <button
+                type="button"
+                onClick={() => setRemoveImage(false)}
+                className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
               >
-                Remove Picture
-              </label>
-            </div>
-          )}
+                Keep current picture
+              </button>
+            )}
+          </div>
 
           <div>
             <label

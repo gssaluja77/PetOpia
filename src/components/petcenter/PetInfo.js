@@ -432,7 +432,6 @@ const PetInfo = () => {
                         </button>
                         <h3 className="text-2xl font-bold text-gray-900 mb-6">Edit Pet</h3>
                         <form onSubmit={editPet} className="space-y-4">
-                            {/* Current Photo Section */}
                             {getMyPets.petImage && !removeImage && !petImageFile && (
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
